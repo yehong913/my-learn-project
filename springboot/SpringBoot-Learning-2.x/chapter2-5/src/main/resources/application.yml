@@ -1,0 +1,11 @@
+wx:
+    mp:
+        configs:
+        - appId: wxf7bf2bd89ad40e9e
+          secret: 5bb4eccdd87d32341d3cb0
+          token: soiree
+          aesKey: IEvCePuLqja295Hcy7ILHjXLjfzTtk1NnZb70gvngoc
+        - appId: 2222
+          secret: 1111
+          token: 111
+          aesKey: 111
