@@ -1,0 +1,57 @@
+@charset "utf-8";
+/* @description: public
+ * @author: sss
+ * @addtime: 2020-01-20 
+*/
+
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{ margin:0; padding:0;}
+fieldset,img,textarea,button{ border:0;outline: none;}
+address,caption,cite,code,dfn,em,strong,th,var{ font-style:normal; font-weight:normal}
+ol,ul,li{ list-style:none}
+h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:normal;}
+body{ color:#666; background:#f0f4f5; font:14px/22px "Microsoft YaHei",Verdana,Arial,sans-serif,"Times New Roman"; text-align:left;}
+table{ border-collapse:collapse; border-spacing:0; font-size:inherit; font:100%;}
+th,td { text-align:left;}
+i{ font-style:normal;}
+a{ text-decoration:none; cursor:pointer; outline:none; color:#333;}
+em{font-style:normal}
+textarea{ resize:none; }
+.clear{ clear:both; font:0/0 Arial; height:0;}
+.clearfix:after{ content:"."; display:block; height:0; clear:both; visibility:hidden;}
+
+
+
+
+/* 地图 */
+.map {width: 100%;height: 100%; position: relative;}
+#allmap {width: 100%;height: 100%}
+.BMap_cpyCtrl { display:none;}
+
+.mapbtn{ position: absolute; right: 12%;top: 3%; width: 200x; text-align: center; z-index: 999; }
+.mapbtn dl dt{ height: 50px; line-height: 50px; border: 1px solid #ccc; background-color: #fff; box-shadow: 0 0 10px #ddd; cursor: pointer;-webkit-user-select:none;
+-moz-user-select:none;-ms-user-select:none;user-select:none; color: #333; }
+
+.mapbtn dl dt i{ margin-left: 5px; vertical-align: middle; }
+.mapbtn dl dd { border: 1px solid #ddd; margin-top: 3px; background-color: #fff; box-shadow: 0 0 10px #ddd; }
+.mapbtn dl dd ul li{  width: 100%; height: 50px; background-color: #fff;  border-bottom: 1px solid #ddd;cursor: pointer; }
+.mapbtn dl dd ul li button{ cursor: pointer; width: 100%; height: 50px; background-color:transparent; }
+.mapbtn dl dd ul li.clickbtncolor { background-color: #4e98d9; color: #fff; }
+.mapbtn dl dd ul li.clickbtncolor button{ color: #fff; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

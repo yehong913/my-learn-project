@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		
+		<title>运政执法指挥调度平台</title>
+		<link rel="stylesheet" href="css/base.css" type="text/css">
+		<link rel="stylesheet"  href="css/bootstrap.min.css" type="text/css" />
+		<link href="css/bootstrap-select.css" rel="stylesheet"  type="text/css"/>
+		
+		
+		<style type="text/css">
+			html {
+				height: 100%
+			}
+
+			body {
+				height: 100%;
+				margin: 0px;
+				padding: 0px
+			}
+			.amap-info-close{ right: 8px !important; top: 10px !important; }
+			.amap-info-content{ padding-right: 26px !important; }
+			.windowMessage{
+				    width: 230px;
+				    position: absolute;
+				    border: 1px solid  lightskyblue;
+				    top: 2%;
+				    left: 40%;
+					background: lightskyblue;
+					z-index: 999;
+					filter:alpha(Opacity=80);-moz-opacity:0.9;opacity: 0.75;
+					display: none;
+			}
+			.closeSpan{
+				font-size: 20px;
+				color:red;
+				float: right;
+				margin-right: 2%;
+			}
+			li.rowData{
+				line-height: 20px;
+				font-size: 16px;
+				margin-left: 20px;
+				margin-top: 10px;
+			}
+			
+		</style>
+
+	</head>
+
+	<body>
+
+		<!-- 地图 -->
+		<div class="map">
+			<div id="allmap"></div>
+		</div>
+		<div class='windowMessage'>
+			<span class='closeSpan'>X</span>
+			<div class="cameraNoticeWindow">
+				<ul>
+					<li class='rowData'>
+						<i>序号：</i>
+						<lable>&nbsp;&nbsp;&nbsp;1</lbale>
+					</li>
+					
+					<li class='rowData'>
+						<i>摄像名称</i>
+						<lable>啊啊啊啊啊啊</lbale>
+					</li>
+					<li class='rowData'>
+						<i>业户名称</i>
+						<lable>啊啊啊啊啊啊</lbale>
+					</li>
+					<li class='rowData'>
+						<i>警告行为:</i>
+						<lable>啊啊啊啊啊啊</lbale>
+					</li>
+					<li class='rowData'>
+						<i>警告事件:</i>
+						<lable>啊啊啊啊啊啊</lbale>
+					</li>
+				</ul>
+			<div>	
+			
+			</div class="videoWindow">
+				<a  onclick="opneNewCamera()">点我直接查看视频</a>
+			</div>
+		</div>
+		
+		
+		<div class="mapbtn">
+				<select class="selectpicker" multiple  id="all"
+									data-style="btn-primary"
+										data-live-search =“true”
+											data-actions-box="true"
+											data-none-selected-text="请选择摄像机平台">
+				  <optgroup label="车载智能云台" >
+					  <option value="1">车载智能云台01</option>
+					  <option value="2">车载智能云台02</option>
+					  <option value="3">车载智能云台03</option>
+					  <option value="13" disabled>执法仪06</option>	
+				  </optgroup>
+				  <optgroup label="无人机监控终端">
+					  <option value="4">无人机监控终端01</option>
+					  <option value="5">无人机监控终端02</option>
+					  <option value="6">无人机监控终端03</option>
+					  <option value="14" disabled>无人机监控终端04</option>	
+				  </optgroup>
+				  <optgroup label="执法仪">
+					  <option value="7">执法仪01</option>
+					  <option value="8">执法仪02</option>
+					  <option value="9">执法仪03</option>
+					  <option value="10">执法仪04</option>
+					  <option value="11">执法仪05</option>
+					  <option value="12">执法仪06</option>	
+					  <option value="15" disabled>执法仪07</option>	
+					  <option value="16" disabled>执法仪08</option>	
+					  <option value="18" disabled>执法仪09</option>	
+					  <option value="17" disabled>执法仪10</option>	
+										
+										
+				  </optgroup>
+				</select>
+		
+		<!--
+		
+		
+					<ul>
+						<li>
+							<select class="selectpicker" multiple id="camera"
+								data-none-selected-text="车载智能云台"
+									data-style="btn-primary"
+										data-live-search =“true”
+											data-actions-box="true">
+							  <option>车载智能云台01</option>
+							  <option>车载智能云台02</option>
+							  <option>车载智能云台03</option>
+							</select>					
+						</li>
+						<li >
+							<select class="selectpicker" multiple  id="tunnle"
+								data-none-selected-text="无人机监控终端"
+									data-style="btn-info"
+										data-live-search =“true”
+											data-actions-box="true">
+							  <option>无人机监控终端01</option>
+							  <option>无人机监控终端02</option>
+							  <option>无人机监控终端03</option>
+							</select>	
+						</li>
+						<li>
+							<select class="selectpicker" multiple id="people"
+								data-none-selected-text="执法仪"
+									data-style="btn-warming"
+										data-live-search =“true”
+											data-actions-box="true">
+							  <option>执法仪01</option>
+							  <option>执法仪02</option>
+							  <option>执法仪03</option>
+							</select>	
+						</li>
+						
+					</ul>  -->
+				
+		</div>
+			
+		
+<!-- 	先导入jqury插件% -->
+   <script src="js/jquery-2.2.3.min.js"></script>
+   <script src="js/layer.js"></script>
+   <!-- 导入bootstrap插件 -->
+    <script src="js/bootstrap.js"></script>
+    <!-- 下拉框插件 -->
+	<script src="js/bootstrap-select.js"></script>	
+	<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=3c8f0adf8f6a43bf67176999063db761"></script>
+	<script src="js/map.js"></script>
+	
+
+	</body>
+</html>
