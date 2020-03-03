@@ -1,0 +1,16 @@
+server:
+  port: 9001
+spring:
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/
+  application:
+    name: config-server
+  profiles:
+    active: native
+eureka:
+  client:
+    service-url:
+      defaultZone:  http://127.0.0.1:8001/eureka/

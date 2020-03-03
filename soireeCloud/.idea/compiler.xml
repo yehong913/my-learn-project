@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="adminclient" />
+        <module name="adminclient2" />
+        <module name="adminserver2" />
+        <module name="configclient" />
+        <module name="configservice" />
+        <module name="eruakeSecurityServer1" />
+        <module name="eurakeserver1" />
+        <module name="eurekaadmin" />
+        <module name="eurekaclient1" />
+        <module name="hystrixservice1" />
+        <module name="mqconfigclient" />
+        <module name="mqconfigserver" />
+        <module name="openfeign" />
+        <module name="ribbonservice1" />
+        <module name="ribbonservice11" />
+        <module name="ribbonservice2" />
+        <module name="soireeCloud" />
+        <module name="zuulproxy" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="adminserver" target="1.8" />
+      <module name="eurakesecurityclient1" target="1.8" />
+      <module name="hystrixService" target="1.5" />
+      <module name="ribbonService" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

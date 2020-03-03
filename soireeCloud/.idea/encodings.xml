@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/adminclient" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/adminclient2" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/adminserver2" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/configclient" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/configservice" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/eruakeSecurityServer1" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/eurakesecurityclient1" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/eurakeserver1" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/eurekaadmin" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/eurekaclient1" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hystrixservice1" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mqconfigclient" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mqconfigserver" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/openfeign" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ribbonservice1" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ribbonservice11" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ribbonservice2" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/zuulproxy" charset="UTF-8" />
+  </component>
+</project>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/eurakeserver1/pom.xml" />
+        <option value="$PROJECT_DIR$/eurekaclient1/pom.xml" />
+        <option value="$PROJECT_DIR$/eruakeSecurityServer1/pom.xml" />
+        <option value="$PROJECT_DIR$/securityclient1/pom.xml" />
+        <option value="$PROJECT_DIR$/ribbonService/pom.xml" />
+        <option value="$PROJECT_DIR$/ribbonservice1/pom.xml" />
+        <option value="$PROJECT_DIR$/ribbonservice2/pom.xml" />
+        <option value="$PROJECT_DIR$/ribbonservice11/pom.xml" />
+        <option value="$PROJECT_DIR$/hystrixservice1/pom.xml" />
+        <option value="$PROJECT_DIR$/openfeign/pom.xml" />
+        <option value="$PROJECT_DIR$/zuulproxy/pom.xml" />
+        <option value="$PROJECT_DIR$/configservice/pom.xml" />
+        <option value="$PROJECT_DIR$/configclient/pom.xml" />
+        <option value="$PROJECT_DIR$/mqconfigserver/pom.xml" />
+        <option value="$PROJECT_DIR$/mqconfigclient/pom.xml" />
+        <option value="$PROJECT_DIR$/eurekaadmin/pom.xml" />
+        <option value="$PROJECT_DIR$/adminclient/pom.xml" />
+        <option value="$PROJECT_DIR$/adminserver2/pom.xml" />
+        <option value="$PROJECT_DIR$/adminclient2/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

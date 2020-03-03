@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: config-client
+  profiles:
+    active: dev
+  # 配置中心存放配置文件格式：${application.name}-${profiles.active}.myl
+  # 例如static-configer-dev.yml、static-configer-qas.yml
+  # 通过上述两个配置去配置中心读取对应的配置文件
+  cloud:
+    config:
+      # uri 配置中心地址
+      #uri: http://localhost:9001
+     #fail-fast: true
+      discovery:
+        service-id: config-server
+server:
+  port: 9101
+eureka:
+  client:
+    service-url:
+      defaultZone:  http://127.0.0.1:8001/eureka/

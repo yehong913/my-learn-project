@@ -1,0 +1,26 @@
+server:
+  port: 9500
+spring:
+  application:
+    name: mq-sever-server
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/
+  profiles: #配置本地
+    active: native
+  rabbitmq: #rabbitmq 配置
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+eureka:
+  client:
+    service-url:
+      defaultZone:  http://127.0.0.1:8001/eureka/
+management: ##暴露bus刷新配置的端点
+                                    endpoints:
+                                      web:
+                                        exposure:
+                                          include: 'bus-refresh'

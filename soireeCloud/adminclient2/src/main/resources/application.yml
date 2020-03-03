@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: admin-client
+#  boot:
+#    admin:
+#      client:
+#        url: http://localhost:9301
+server:
+  port: 9405
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+logging:
+  file: admin-client.log #添加开启admin的日志监控
+eureka:
+  client:
+    service-url:
+      defaultZone:  http://127.0.0.1:8001/eureka/
