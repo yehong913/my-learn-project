@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+		<title>南京运政5G执法指挥调度大屏</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="css/base.css">
+		<link rel="stylesheet" type="text/css" href="css/decisionAnalyze.css">
+
+	</head>
+	
+	<body class="sjone_bg">
+		<div class="header"><span>南京运政5G执法指挥调度大屏</span></div>
+
+		<div class="wrapper">
+			<div class="container-fluid">
+				<div class="row fill-h">
+					<!-- 左边 -->
+					<div class="col-lg-3 fill-h">
+						<!-- 总数1 -->
+						<div class="xpanel-wrapper xpanel-wrapper-3 xpanel-wrapper-left-one">
+							<div class="xpanel">
+								<div class="top">
+									<div class="top_left"><img src="img/icon1.png" /></div>
+									<div class="top_right"><h2 class="timer count-title" id="count-number" data-to="98504" data-speed="6000"></h2>条</div>
+								</div>
+								<div class="cent"><img src="img/line.png" /></div>
+								<div class="bott">
+									<div class="bott_left">告警信息</div>
+									<div class="bott_right">截止2020年01月20日</div>
+								</div>
+							</div>
+						</div>
+						<!-- 数据统计2 -->
+						<div class="xpanel-wrapper xpanel-wrapper-1 xpanel-wrapper-left-two">
+							<div class="xpanel">
+								<div class="right_title">违章信息</div>
+								<div id="echartsWarptop">
+									<div id="lefttop"></div>
+								</div>
+							</div>
+						</div>
+						<!-- 数据统计2 -->
+						<div class="xpanel-wrapper xpanel-wrapper-1 xpanel-wrapper-left-three">
+							<div class="xpanel">
+								<div class="right_title">违规车辆类型</div>
+								<div class="left" id="leftThree"></div>
+								<div id="echartsWarpbottom"></div>
+							</div>
+						</div>
+					</div>
+					
+					<!-- 中间 -->
+					<div class="col-lg-6 fill-h">
+						<!-- 总数1 -->
+						<div class="xpanel-wrapper xpanel-wrapper-3 xpanel-wrapper-cent-one">
+							<div class="xpanel">
+								<div class="left">
+									<div class="top">
+										<div class="top_left"><img src="img/icon2.png" /></div>
+										<div class="top_right"><h2 class="timer count-title" id="count-number" data-to="3058" data-speed="6000"></h2>条</div>
+									</div>
+									<div class="cent"><img src="img/line.png" /></div>
+									<div class="bott">
+										<div class="bott_left">违章信息</div>
+										<div class="bott_right">比2019年同期净减少<span>3052条</span></div>
+									</div>
+								</div>
+								<div class="right">
+									<div class="top">
+										<div class="top_left"><img src="img/icon3.png" /></div>
+										<div class="top_right"><h2 class="timer count-title" id="count-number" data-to="8978" data-speed="6000"></h2>辆</div>
+									</div>
+									<div class="cent"><img src="img/line.png" /></div>
+									<div class="bott">
+										<div class="bott_left">车辆信息</div>
+										<div class="bott_right"><em>10987</em>标台</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- 数据统计2 -->
+						<div class="xpanel-wrapper xpanel-wrapper-5 xpanel-wrapper-cent-two">
+							<div class="xpanel" id="daping">
+								
+							</div>
+						</div>
+						<!-- 万人标台3 -->
+						<div class="xpanel-wrapper xpanel-wrapper-6 xpanel-wrapper-cent-three">
+							<div class="xpanel">
+								<div class="title">违章信息</div>
+								<div class="cont">
+									<ul class="tit">
+										<li>车牌号</li>
+										<li>业户名称</li>
+										<li>违章时间</li>
+										<li>违章行为</li>
+									</ul>
+									<div class="scrollDiv list" id="s2">
+										<ul>
+											<li>
+												<p>苏AB6582</p>
+												<p>南京慧鹏运输有限公司</p>
+												<p>2020-01-07 10:46</p>
+												<p>取得道路运输经营许可的经营者使用超出道路运...</p>
+											</li>
+											<li>
+												<p>苏AG1279</p>
+												<p>南京慧鹏运输有限公司</p>
+												<p>2020-01-07 10:14</p>
+												<p>道路运输经营者使用卫星定位装置出现故障不能保...</p>
+											</li>
+											<li>
+												<p>苏AF3369</p>
+												<p>南京慧鹏运输有限公司</p>
+												<p>2020-01-07 09:55</p>
+												<p>道路运输经营者使用卫星定位装置出现故障不能保...</p>
+											</li>
+											<li>
+												<p>苏AM8119</p>
+												<p>南京华仕邦机电设备有限公司</p>
+												<p>2020-01-06 14:31</p>
+												<p>未按照规定参加年度审验</p>
+											</li>
+											<li>
+												<p>苏A90718</p>
+												<p>南京双燕客运服务有限公司</p>
+												<p>2020-01-06 14:15</p>
+												<p>客运包车未持有效的包车客运标志牌进行经营...</p>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- 右边 -->
+					<div class="col-lg-3 fill-h">
+						<!-- 总数1 -->
+						<div class="xpanel-wrapper xpanel-wrapper-3 xpanel-wrapper-right-one">
+							<div class="xpanel">
+								<div class="top">
+									<div class="top_left"><img src="img/icon4.png" /></div>
+									<div class="top_right"><h2 class="timer count-title" id="count-number" data-to="107.47" data-speed="3000"></h2>万人</div>
+								</div>
+								<div class="cent"><img src="img/line.png" /></div>
+								<div class="bott">
+									<div class="bott_left">从业人员</div>
+								</div>
+							</div>
+						</div>
+						<!-- 数据统计2 -->
+						<div class="xpanel-wrapper xpanel-wrapper-1 xpanel-wrapper-right-two">
+							<div class="xpanel">
+								<div class="right_title">监控违章摄像头分布</div>
+								<div class="left" id="rightTwo" ></div>
+							</div>
+						</div>
+						<!-- 数据统计2 -->
+						<div class="xpanel-wrapper xpanel-wrapper-1 xpanel-wrapper-right-two">
+							<div class="xpanel">
+								<div class="right_title">入网车辆分布</div>
+								<div class="left" id="rightThree"></div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+
+
+
+	
+		<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="js/echarts.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+
+		<script type="text/javascript" src="js/left-two.js"></script>
+		<script type="text/javascript" src="js/left-three.js"></script>
+		<script type="text/javascript" src="js/right-two.js"></script>
+		<script type="text/javascript" src="js/right-three.js"></script>
+		<script type="text/javascript" src="js/text.js"></script>
+		<script type="text/javascript">
+			//滚动插件
+			(function($) {
+				$.fn.extend({
+					Scroll: function(opt, callback) {
+						//参数初始化
+						if (!opt) var opt = {};
+						var _this = this.eq(0).find("ul:first");
+						var lineH = _this.find("li:first").height(), //获取行高
+							line = opt.line ? parseInt(opt.line, 10) : parseInt(this.height() / lineH, 10), //每次滚动的行数，默认为一屏，即父容器高度
+							speed = opt.speed ? parseInt(opt.speed, 10) : 500, //卷动速度，数值越大，速度越慢（毫秒）
+							timer = opt.timer ? parseInt(opt.timer, 10) : 3000; //滚动的时间间隔（毫秒）
+						if (line == 0) line = 1;
+						var upHeight = 0 - line * lineH;
+						//滚动函数
+						scrollUp = function() {
+							_this.animate({
+								marginTop: upHeight
+							}, speed, function() {
+								for (i = 1; i <= line; i++) {
+									_this.find("li:first").appendTo(_this);
+								}
+								_this.css({
+									marginTop: 0
+								});
+							});
+						}
+						//鼠标事件绑定
+						_this.hover(function() {
+							clearInterval(timerID);
+						}, function() {
+							timerID = setInterval("scrollUp()", timer);
+						}).mouseout();
+					}
+				});
+			})(jQuery);
+	
+			$(document).ready(function() {
+				$("#s2").Scroll({
+					line: 1,
+					speed: 500,
+					timer: 4000
+				});
+			});
+			
+			document.getElementById("daping").innerHTML = '<object type="text/html" data="http://localhost:8080/njygc-admin/index" width="100%" height="100%"></object>';
+			$(".bigTV").click(function(){
+				alert(1);
+			});
+		</script>
+	</body>
+</html>

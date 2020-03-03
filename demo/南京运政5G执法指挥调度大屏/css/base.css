@@ -1,0 +1,198 @@
+@charset "utf-8";
+/* @description: public
+ * @author: sss
+ * @addtime: 2018-10-12
+*/
+
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{ margin:0; padding:0;}
+fieldset,img,textarea,button{ border:0;}
+address,caption,cite,code,dfn,em,strong,th,var{ font-style:normal; font-weight:normal}
+ol,ul,li{ list-style:none}
+h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:normal;}
+body{ color:#666; background:#fff; font:14px/22px "Microsoft YaHei",Verdana,Arial,sans-serif,"Times New Roman"; text-align:left;}
+table{ border-collapse:collapse; border-spacing:0; font-size:inherit; font:100%;}
+th,td { text-align:left;}
+i{ font-style:normal;}
+a{ text-decoration:none; cursor:pointer; outline:none; color:#333;}
+em{font-style:normal}
+.clear{ clear:both; font:0/0 Arial; height:0;}
+.clearfix:after{ content:"."; display:block; height:0; clear:both; visibility:hidden;}
+
+.sjone_bg{ background: url(../img/bg.jpg) left center no-repeat; background-size:100% 100%; }
+
+.header{ width: 60%; height: 11%; background:url(../img/title-bg.png) center center no-repeat; text-align: center; background-size: 100% 100%; }
+.header span{ display: block; font-size: 40px; color: #29edfd; height: 100%; line-height: 220%; }
+
+/*左*/
+.xpanel-wrapper-left-one{ background: url(../img/k1.png) no-repeat; background-size: 100% 100%; }
+.xpanel-wrapper-left-one .top{ padding: 5% 5% 0 5%; width: 100%; height: 50%; position: relative; }
+.xpanel-wrapper-left-one .top .top_left{ float: left; width:11%; height:100%; }
+.xpanel-wrapper-left-one .top .top_left img{ display: block; width: 100%; height: 100%; }
+.xpanel-wrapper-left-one .top .top_right{ line-height: 1; float: right; font-size: 30px; color: #00ebff; position: absolute; right:5%; bottom: 0; }
+.xpanel-wrapper-left-one .top .top_right h2{ float: left; }
+.xpanel-wrapper-left-one .cent{ margin: 0 auto; width: 90%; }
+.xpanel-wrapper-left-one .cent img{ display: block; width: 100%; height: 100%; }
+.xpanel-wrapper-left-one .bott{ padding: 2% 5% 2% 5%; width: 100%; height: 40%; }
+.xpanel-wrapper-left-one .bott .bott_left{ float: left; font-size: 20px; color: #00ebff; }
+.xpanel-wrapper-left-one .bott .bott_right{ float: right; font-size: 14px; color: #00ebff; }
+.xpanel-wrapper-left-two{ background: url(../img/k5.png) no-repeat; background-size: 100% 100%; margin-top: 3%; }
+.xpanel-wrapper-left-two .title{ font-size: 18px; color: #00effe; line-height: 3;  }
+.xpanel-wrapper-left-two .xpanel{ padding: 0 5%; width: 100%; height: 100%; }
+
+.xpanel-wrapper-left-two #echartsWarptop{ height: 75%; width: 100%; }
+.xpanel-wrapper-left-three #echartsWarpbottom{ height: 75%; width: 100%; }
+
+
+.xpanel-wrapper-left-two .cont{ width: 100%; height: 85%; }
+.xpanel-wrapper-left-two .cont .container-item:nth-child(1){ margin-top: 7%; }
+.xpanel-wrapper-left-two .cont .container-item:nth-child(2){ margin-top: 5%; }
+.xpanel-wrapper-left-two .cont .left_myChart{ width: 100%; height: 50%; }
+.xpanel-wrapper-left-two .sj_right{ width: 62%; float: left; }
+.xpanel-wrapper-left-two .bottomLine .sj_right{ margin-top: 7%; }
+.xpanel-wrapper-left-two #myCanvas{ margin-right: 6%; }
+.xpanel-wrapper-left-two #myCanvas1{ margin-right: 6%; }
+.xpanel-wrapper-left-two #myCanvas2{ margin-right: 6%; }
+.xpanel-wrapper-left-two #myCanvas3{ margin-right: 6%; }
+.xpanel-wrapper-left-two .textcon{ font-size: 20px; color: #29ecfc; }
+.xpanel-wrapper-left-two .container_bott .textcon{ font-size: 20px; color: #fd9846; }
+.xpanel-wrapper-left-two .container_bott .circle{ background-color: #fff4d1; }
+.container_top .sj_right span{ font-size: 14px; color: #fff; }
+.container_top .sj_right div{ font-size: 14px; color: #29ecfc; }
+.container_top .sj_right div:nth-child(1){ font-size: 14px; color: #fff; }
+.container_bott .sj_right span{ font-size: 14px; color: #fff; }
+.container_bott .sj_right div{ font-size: 14px; color: #fd9846; }
+.container_bott .sj_right div:nth-child(1){ font-size: 14px; color: #fff; }
+.xpanel-wrapper-left-three{ background: url(../img/k5.png) no-repeat; background-size: 100% 100%; margin-top: 3%; }
+.xpanel-wrapper-left-three .title{ font-size: 18px; color: #00effe; line-height: 2; }
+.xpanel-wrapper-left-three .xpanel{ padding:3% 5%; width: 100%; height: 100%; }
+.xpanel-wrapper-left-three .cont{ height: 70%; }
+.xpanel-wrapper-left-three .cont ul{ height: 100%; }
+.xpanel-wrapper-left-three .cont ul li{ width: 100%; display: block; height: 30%; }
+.xpanel-wrapper-left-three .cont ul li span em{ font-size: 12px; color: #00effe; }
+.xpanel-wrapper-left-three .cont ul li span:nth-child(1){ float: left; font-size: 12px; color: #fff; width: 75%; }
+.xpanel-wrapper-left-three .cont ul li span:nth-child(2){ float: right; font-size: 12px; color: #fff; width: 25%; text-align: right;; }
+
+
+/*中*/
+.xpanel-wrapper-cent-one .left{ float: left; background: url(../img/k1.png) no-repeat; background-size: 100% 100%; width: 49%; height: 100%; }
+.xpanel-wrapper-cent-one .left .top{ padding: 5% 5% 0 5%; width: 100%; height: 50%; position: relative; }
+.xpanel-wrapper-cent-one .left .top .top_left{ float: left; width:11%; height:100%; }
+.xpanel-wrapper-cent-one .left .top .top_left img{ display: block; width: 100%; height: 100%; }
+.xpanel-wrapper-cent-one .left .top .top_right{ line-height: 1; float: right; font-size: 30px; color: #00ebff; position: absolute; right:5%; bottom: 0; }
+.xpanel-wrapper-cent-one .left .top .top_right h2{ float: left; }
+.xpanel-wrapper-cent-one .left .cent{ margin: 0 auto; width: 90%; }
+.xpanel-wrapper-cent-one .left .cent img{ display: block; width: 100%; height: 100%; }
+.xpanel-wrapper-cent-one .left .bott{ padding: 2% 5% 2% 5%; width: 100%; height: 40%; }
+.xpanel-wrapper-cent-one .left .bott .bott_left{ float: left; font-size: 20px; color: #00ebff; }
+.xpanel-wrapper-cent-one .left .bott .bott_right{ float: right; font-size: 14px; color: #00ebff; }
+.xpanel-wrapper-cent-one .left .bott .bott_right span{ color: #16e494; }
+
+.xpanel-wrapper-cent-one .right{ float: right; background: url(../img/k1.png) no-repeat; background-size: 100% 100%; width: 49%; height: 100%; }
+.xpanel-wrapper-cent-one .right .top{ padding: 5% 5% 0 5%; width: 100%; height: 50%; position: relative; }
+.xpanel-wrapper-cent-one .right .top .top_left{ float: left; width:11%; height:100%; }
+.xpanel-wrapper-cent-one .right .top .top_left img{ display: block; width: 40px; height: 100%; }
+.xpanel-wrapper-cent-one .right .top .top_right{ line-height: 1; float: right; font-size: 30px; color: #00ebff; position: absolute; right:5%; bottom: 0; }
+.xpanel-wrapper-cent-one .right .top .top_right h2{ float: left;  }
+.xpanel-wrapper-cent-one .right .cent{ margin: 0 auto; width: 90%; }
+.xpanel-wrapper-cent-one .right .cent img{ display: block; width: 100%; height: 100%; }
+.xpanel-wrapper-cent-one .right .bott{ padding: 2% 5% 2% 5%; width: 100%; height: 40%; }
+.xpanel-wrapper-cent-one .right .bott .bott_left{ float: left; font-size: 20px; color: #00ebff; }
+.xpanel-wrapper-cent-one .right .bott .bott_right{ float: right; font-size: 14px; color: #00ebff; }
+.xpanel-wrapper-cent-one .right .bott .bott_right em{ color: #ddba2d; }
+
+.xpanel-wrapper-cent-two{ background: url(../img/k6.png) no-repeat; background-size: 100% 100%; margin-top: 1%; }
+
+
+.xpanel-wrapper-cent-three{ background: url(../img/k4.png) no-repeat; background-size: 100% 100%; margin-top: 1%; }
+.xpanel-wrapper-cent-three .title{ font-size: 18px; color: #00effe; line-height:1.5; padding-top: 15px; }
+.xpanel-wrapper-cent-three .xpanel{ padding:0 2%; width: 100%; height: 100%; }
+
+
+.xpanel-wrapper-cent-three .cont { color: #fff; }
+
+.xpanel-wrapper-cent-three .cont .tit{ height: 40px; line-height: 40px; }
+.xpanel-wrapper-cent-three .cont .tit li{ float: left; color: #00effe; font-size: 16px; }
+
+.xpanel-wrapper-cent-three .cont .tit li:nth-child(1){ width: 12%; }
+.xpanel-wrapper-cent-three .cont .tit li:nth-child(2){ width: 22%; }
+.xpanel-wrapper-cent-three .cont .tit li:nth-child(3){ width: 18%; }
+.xpanel-wrapper-cent-three .cont .tit li:nth-child(4){ width: 48%; }
+/* .xpanel-wrapper-cent-three .cont .tit li:nth-child(5){ width: 16%; } */
+
+.scrollDiv {
+	height: 120px;/* 必要元素 */
+	overflow: hidden;/* 必要元素 */
+}
+
+.xpanel-wrapper-cent-three .cont .list ul { height: 120px; overflow: hidden; }
+.xpanel-wrapper-cent-three .cont .list ul li{ height: 30px; line-height: 30px; overflow: hidden; }
+.xpanel-wrapper-cent-three .cont .list ul li p{ float: left; font-size: 14px; }
+
+.xpanel-wrapper-cent-three .cont .list ul li p:nth-child(1){ width: 12%; }
+.xpanel-wrapper-cent-three .cont .list ul li p:nth-child(2){ width: 22%; }
+.xpanel-wrapper-cent-three .cont .list ul li p:nth-child(3){ width: 18%; }
+.xpanel-wrapper-cent-three .cont .list ul li p:nth-child(4){ width: 48%; }
+/* .xpanel-wrapper-cent-three .cont .list ul li p:nth-child(5){ width: 16%; } */
+
+
+
+
+
+
+/*右*/
+.xpanel-wrapper-right-one{ background: url(../img/k1.png) no-repeat; background-size: 100% 100%; }
+.xpanel-wrapper-right-one .top{ padding: 5% 5% 0 5%; width: 100%; height: 50%; position: relative; }
+.xpanel-wrapper-right-one .top .top_left{ float: left; width:11%; height:100%; }
+.xpanel-wrapper-right-one .top .top_left img{ display: block; width: 100%; height: 100%; }
+.xpanel-wrapper-right-one .top .top_right{ line-height: 1; float: right; font-size: 30px; color: #00ebff; position: absolute; right:5%; bottom: 0; }
+.xpanel-wrapper-right-one .top .top_right h2{ float: left; }
+.xpanel-wrapper-right-one .cent{ margin: 0 auto; width: 90%; }
+.xpanel-wrapper-right-one .cent img{ display: block; width: 100%; height: 100%; }
+.xpanel-wrapper-right-one .bott{ padding: 2% 5% 2% 5%; width: 100%; height: 40%; }
+.xpanel-wrapper-right-one .bott .bott_left{ float: left; font-size: 20px; color: #00ebff; }
+.xpanel-wrapper-right-one .bott .bott_right{ float: right; font-size: 14px; color: #00ebff; }
+
+
+
+.xpanel-wrapper-right-two{ background: url(../img/k5.png) no-repeat; background-size: 100% 100%; margin-top: 3%; }
+
+
+.xpanel-wrapper-right-two .xpanel{ padding:3% 5%; width: 100%; height: 100%; }
+
+.right_title{ font-size: 18px; color: #00effe; line-height: 3; }
+
+
+.xpanel-wrapper-right-two .left{ width: 100%; height: 70%; float: left; }
+.xpanel-wrapper-right-two .cont{ height:80%; margin-top: 3%; }
+
+
+.xpanel-wrapper-right-three{ background: url(../img/k1.png) no-repeat; background-size: 100% 100%; margin-top: 2%; }
+
+.xpanel-wrapper-right-three .xpanel{ padding:3% 5%; width: 100%; height: 100%; }
+.xpanel-wrapper-right-three .right_title{ font-size: 18px; color: #00effe; line-height: 2; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
