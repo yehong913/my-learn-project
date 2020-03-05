@@ -8,6 +8,7 @@ import com.soiree.swagger.mapper.PmsBrandMapper;
 import com.soiree.swagger.model.PmsBrand;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -16,6 +17,7 @@ import javax.websocket.server.PathParam;
 @Api(tags = "PmsBrandController", description = "商品品牌管理")
 @RestController
 @RequestMapping("/test")
+@Slf4j
 public class TestController {
     @Resource
     private PmsBrandMapper pmsBrandMapper;
@@ -23,9 +25,9 @@ public class TestController {
     @ApiOperation("获取所有品牌列表")
     @RequestMapping(value="/byId/{id}",method = RequestMethod.GET)
     public String test(@PathVariable("id") Long id){
+        log.info("请求记录"+id);
         PmsBrand pmsBrand=pmsBrandMapper.selectByPrimaryKey(id);
         return  JSONObject.toJSONString(pmsBrand);
-
     }
 
 

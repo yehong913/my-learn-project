@@ -17,3 +17,6 @@ spring:
 mybatis:
   mapper-locations:
     classpath*:  com/soiree/swagger/mapper/*.xml
+#logging:
+    ##  level:
+    ##    root: DEBUG #指定包，指定类，或者直接root  #root: debug
