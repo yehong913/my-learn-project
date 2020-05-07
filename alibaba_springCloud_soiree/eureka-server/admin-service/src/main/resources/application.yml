@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: admin1-server
+  security: # 配置登录用户名和密码
+    user:
+      name: root
+      password: root
+  boot:  # 不显示admin-security-server的监控信息
+    admin:
+      discovery:
+        ignored-services: ${spring.application.name}
+server:
+  port: 9301
+eureka:
+  client:
+    register-with-eureka: true #注册到Eureka的注册中心
+    fetch-registry: true #获取注册实例列表
+    service-url:
+      defaultZone: http://root:root@localhost:8002/eureka/,http://root:root@kubernetes.docker.internal:8003/eureka/ #配置注册中心地址

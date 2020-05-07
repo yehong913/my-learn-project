@@ -1,0 +1,19 @@
+server:
+  port: 8401 #运行端口号
+spring:
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/
+  profiles:
+    active: native
+  application:
+    name: config-server #服务名称
+eureka:
+  client:
+    register-with-eureka: true #注册到Eureka的注册中心
+    fetch-registry: true #获取注册实例列表
+    service-url:
+      defaultZone: http://root:root@localhost:8002/eureka/,http://root:root@kubernetes.docker.internal:8003/eureka/ #配置注册中心地址
+

@@ -1,0 +1,11 @@
+server:
+  port: 8004
+spring:
+  application:
+    name: security-eureka-server
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    fetch-registry: false
+    register-with-eureka: false

@@ -1,0 +1,8 @@
+server:
+  port: 9401
+spring:
+  application:
+    name: oauth2-service
+  redis:
+    host: 127.0.0.1
+    port: 6379

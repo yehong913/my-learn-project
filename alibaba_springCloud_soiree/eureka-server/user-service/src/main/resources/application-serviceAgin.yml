@@ -1,0 +1,16 @@
+server:
+  port: 8105
+spring:
+  application:
+    name: user-service
+  zipkin:
+    base-url: http://locahost:9411
+  sleuth:
+    sampler:
+      probability: 0.1
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://root:root@localhost:8002/eureka/,http://root:root@kubernetes.docker.internal:8003/eureka/ #配置注册中心地址

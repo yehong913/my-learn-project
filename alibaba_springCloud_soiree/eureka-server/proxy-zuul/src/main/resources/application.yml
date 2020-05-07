@@ -1,0 +1,25 @@
+server:
+  port: 8301 #运行端口号
+spring:
+  application:
+    name: proxy-zuul #服务名称
+eureka:
+  client:
+    register-with-eureka: true #注册到Eureka的注册中心
+    fetch-registry: true #获取注册实例列表
+    service-url:
+      defaultZone: http://root:root@localhost:8002/eureka/,http://root:root@kubernetes.docker.internal:8003/eureka/ #配置注册中心地址
+zuul:
+  routes:
+    user-service:
+      path: /user-service/*
+    feign-service:
+      path: /feign-service/**
+  prefix: /proxy
+  sensitive-headers: Cookie,Set-Cookie,Authorization #配置过滤敏感的请求头信息，设置为空就不会过滤
+  add-host-header: true #设置为true重定向是会添加host请求头
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'routes'
