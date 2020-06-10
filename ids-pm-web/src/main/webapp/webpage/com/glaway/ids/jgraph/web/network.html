@@ -1,0 +1,592 @@
+<!Doctype html>
+<html xmlns=http://www.w3.org/1999/xhtml>
+<head>
+<meta http-equiv=Content-Type content="text/html;charset=utf-8">
+<script src="../../javascript/jquery-1.8.2.js"></script>
+<script src="../../javascript/global.js"></script>
+<!-- 引入支持库文件 -->
+<script type="text/javascript" src="../src/js/mxClient.js"></script>
+<title>级联网络图</title>
+<style type="text/css">
+body div.mxPopupMenu {
+	-webkit-box-shadow: 3px 3px 6px #C0C0C0;
+	-moz-box-shadow: 3px 3px 6px #C0C0C0;
+	box-shadow: 3px 3px 6px #C0C0C0;
+	background: white;
+	position: absolute;
+	border: 3px solid #e7e7e7;
+	padding: 3px;
+}
+
+body table.mxPopupMenu {
+	border-collapse: collapse;
+	margin: 0px;
+}
+
+body tr.mxPopupMenuItem {
+	color: black;
+	cursor: default;
+}
+
+body td.mxPopupMenuItem {
+	padding: 6px 60px 6px 30px;
+	font-family: Arial;
+	font-size: 10pt;
+}
+
+body td.mxPopupMenuIcon {
+	background-color: white;
+	padding: 0px;
+}
+
+body tr.mxPopupMenuItemHover {
+	background-color: #eeeeee;
+	color: black;
+}
+
+table.mxPopupMenu hr {
+	border-top: solid 1px #cccccc;
+}
+
+table.mxPopupMenu tr {
+	font-size: 4pt;
+}
+</style>
+
+<!-- 如果本文件的包与src不是在同一个目录,就要将basepath设置到src目录下 -->
+<script type="text/javascript">
+	mxBasePath = '../src';
+</script>
+
+<!-- 示例代码 -->
+<script type="text/javascript">
+	var staticPlanMap = new HashMap();
+	var staticGraph;
+	var planListData;
+	var a = '1';								// 是否是关键路径上的计划节点
+	var linkIds = '1';
+
+	var allPlanObjArr = new Array();			// 用于存放所有的计划对象
+	var haveDrawPlanIdsArr = new Array();		// 用户存放已经渲染过的计划的id
+	var allSwimLaneObjArr = new Array();		// 用于存放所有的泳道对象
+	var haveDrawSwimLaneIdsArr = new Array();	// 用于存放已经渲染过的泳道的id
+	var allLinkObjArr = new Array();			// 用于存放所有的连线对象
+	var haveDrawLinkIdsArr = new Array();		// 用于存放已经渲染过的连线的id
+	
+	//判断是否是IE11，版本需要支持
+	function isIE11(){
+		var isIE = window.ActiveXObject || "ActiveXObject" in window;
+		if (isIE){
+			if(navigator.userAgent.toLowerCase().match(/rv:([\d.]+)\) like gecko/)){
+				return true
+			}else{
+				return false
+			}
+		}
+			
+	}
+	// 程序在此方法中启动 
+	function main(container, ajaxdata) {
+		planListData = ajaxdata;
+		//检查浏览器支持,针对IE11
+		if (isIE11()||mxClient.isBrowserSupported()){
+			// 禁用浏览器自带右键菜单
+			mxEvent.disableContextMenu(document.body);
+
+			// 去锯齿效果
+			mxRectangleShape.prototype.crisp = true;
+
+			//画计划
+			if (ajaxdata.swimLaneVOs != null && ajaxdata.swimLaneVOs.length > 0) {
+				$('#graphContainer').width(parseInt(ajaxdata.swimLaneVOs[ajaxdata.swimLaneVOs.length - 1].target.split(',')[0], 10));
+				$('#graphContainer').height(parseInt(ajaxdata.swimLaneVOs[ajaxdata.swimLaneVOs.length - 1].target.split(',')[1], 10));
+			}
+			if (ajaxdata.planLinkVOs != null
+					&& ajaxdata.planLinkVOs.length > 0) {
+				for (var i = 0; i < ajaxdata.planLinkVOs.length; i++) {
+					linkIds = linkIds + ',' + ajaxdata.planLinkVOs[i].source + ',' + ajaxdata.planLinkVOs[i].target;
+				}
+			}
+			//计算计划
+			if (ajaxdata.planVOs != null && ajaxdata.planVOs.length > 0) {
+				var planStr = '';
+				var firefox = isFirefoxOs();
+				for (var i = 0; i < ajaxdata.planVOs.length; i++) {
+					planStr = '';
+					lineNo = '';
+					try {
+						lineNo = ajaxdata.planVOs[i].lineNumber;
+					} catch (e) {
+					}
+					;
+					plName = '';
+					try {
+						plName = ajaxdata.planVOs[i].planName;
+					} catch (e) {
+					}
+					;
+					pTimes = '';
+					try {
+						pTimes = ajaxdata.planVOs[i].times;
+					} catch (e) {
+					}
+					;
+					plDept = '';
+					try {
+						plDept = ajaxdata.planVOs[i].planDep;
+					} catch (e) {
+					}
+					;
+					pColor = 'orange';
+					if (ajaxdata.planVOs[i].color.split(',')[0] == '#006006') {
+						pColor = 'green';
+					} else if (ajaxdata.planVOs[i].color.split(',')[0] == '#0000ff') {
+						pColor = 'blue';
+					} else if (ajaxdata.planVOs[i].color.split(',')[0] == '#525252') {
+						pColor = 'gray';
+					} else if (ajaxdata.planVOs[i].color.split(',')[0] == '#ff0000') {
+						pColor = 'red';
+					}
+					a = linkIds.indexOf(ajaxdata.planVOs[i].planOid);
+					if(firefox) {
+						planStr += '<div title="'+getTipContent(ajaxdata.planVOs[i])+'" id="'+ajaxdata.planVOs[i].planOid+'"  dataOptions="'+ajaxdata.planVOs[i].planOid+'" style="width:80px;height:80px;background:url(images/network/'
+						+ pColor + '.png) no-repeat center;position:absolute;top:' + ajaxdata.planVOs[i].y + 'px;left:' + (ajaxdata.planVOs[i].x - 10) + 'px;text-align:center;font-size:small">';
+						planStr += '<div style="position:relative;top:12px;">' + lineNo + '</div>';
+						if(a >= 0){
+							planStr += '<div style="position:relative;top:14px;left:10px;width:60px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:red">' + plName + '</div>';
+						}else{
+							planStr += '<div style="position:relative;top:14px;left:10px;width:60px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + plName + '</div>';
+						}
+						planStr += '<div style="position:relative;top:16px;color:blue">' + pTimes + '</div>';
+						planStr += '<div style="position:relative;top:18px;left:10px;width:60px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + plDept + '</div>';
+						planStr += '</div>';
+					} else {
+						planStr += '<div title="'+getTipContent(ajaxdata.planVOs[i])+'" id="'+ajaxdata.planVOs[i].planOid+'"  dataOptions="'+ajaxdata.planVOs[i].planOid+'" style="width:80px;height:80px;background:url(images/network/'
+						+ pColor + '.png) no-repeat center;position:absolute;top:' + ajaxdata.planVOs[i].y + 'px;left:' + (ajaxdata.planVOs[i].x - 10) + 'px;text-align:center;font-size:small">';
+						planStr += '<div style="position:relative;top:12px;">' + lineNo + '</div>';
+
+						if(a >= 0){
+							planStr += '<div style="position:relative;top:16px;left:10px;width:60px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:red">' + plName + '</div>';
+						}else{
+							planStr += '<div style="position:relative;top:16px;left:10px;width:60px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + plName + '</div>';
+						}
+						
+						planStr += '<div style="position:relative;top:24px;color:blue">' + pTimes + '</div>';
+						planStr += '<div style="position:relative;top:28px;left:10px;width:60px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + plDept + '</div>';
+						planStr += '</div>';
+					}
+					var planObj = new Object();
+					planObj.id = i;
+					planObj.x = ajaxdata.planVOs[i].x;
+					planObj.y = ajaxdata.planVOs[i].y;
+					planObj.htmlStr = planStr;
+					allPlanObjArr.push(planObj);
+				}
+				//$('#graphContainer').html($('#graphContainer').html() + planStr);
+			}
+
+			// 在容器中创建图形
+			var graph = new mxGraph(container);
+			staticGraph = graph;
+
+			// 禁用调整大小
+			graph.setCellsResizable(false);
+
+			graph.setPanning(true);
+			graph.setTooltips(true);
+			graph.setConnectable(true);
+
+			// 创建下拉菜单
+			new mxRubberband(graph);
+
+			// 创建默认窗体
+			var parent = graph.getDefaultParent();
+
+			// 启动更新事务
+			graph.getModel().beginUpdate();
+
+			// 启用导航线  
+			mxGraphHandler.prototype.guidesEnabled = true;
+
+			var style = graph.getStylesheet().getDefaultVertexStyle();
+
+			style = mxUtils.clone(style);
+			style[mxConstants.STYLE_VERTICAL_ALIGN] = 'top';
+			style[mxConstants.STYLE_HORIZONTAL] = true;
+			style[mxConstants.STYLE_FILLCOLOR] = 'none';
+			graph.getStylesheet().putCellStyle('swimLaneStyle', style);
+
+			style = graph.getStylesheet().getDefaultEdgeStyle();
+			style = mxUtils.clone(style);
+			style[mxConstants.STYLE_DASHED] = true;
+			graph.getStylesheet().putCellStyle('crossover', style);
+
+			try {
+				var planMap = new HashMap();//用户于存放计划对象
+				var planMap2 = new HashMap();//用于存放坐标x和y
+				var planGraph = false;
+				var swimGraph = false;
+				//画事例图
+				createColorIndex(graph, parent);
+				//计算泳道
+				if (ajaxdata.swimLaneVOs != null && ajaxdata.swimLaneVOs.length > 0) {
+					var gcWidth = $('#graphContainer').css('width');
+					gcWidth = gcWidth.substring(0, gcWidth.indexOf('px'));//截取px
+					var gcHeight = $('#graphContainer').css('height');
+					gcHeight = gcHeight.substring(0, gcHeight.indexOf('px'));//截取px
+					var swimLaneTotalHeight = 0;
+					var swimLaneTitleBorderLeft = 0;
+					var swimLaneTitleBorderRight = 0;
+					var swimLaneTitleBorderHeight = 0;								
+					
+					for (var i = 0; i < ajaxdata.swimLaneVOs.length; i++) {
+						if (ajaxdata.swimLaneVOs[i].type == '0') {
+							swimLaneTotalHeight = ajaxdata.swimLaneVOs[i].source.split(',')[1];
+							swimLaneTitleBorderRight = parseInt(ajaxdata.swimLaneVOs[i].source.split(',')[0],10)>swimLaneTitleBorderRight?parseInt(ajaxdata.swimLaneVOs[i].source.split(',')[0],10):swimLaneTitleBorderRight;
+							if(i == 0) {
+								swimLaneTitleBorderLeft = ajaxdata.swimLaneVOs[i].source.split(',')[0];
+							}
+						}
+						if(ajaxdata.swimLaneVOs[i].type == '1') {
+							swimLaneTitleBorderHeight = ajaxdata.swimLaneVOs[i].target.split(',')[1];
+						}
+					}
+					for (var i = 0; i < ajaxdata.swimLaneVOs.length; i++) {
+						//泳道标题
+						if (ajaxdata.swimLaneVOs[i].type == '1') {
+							var swimLaneObj = new Object();
+							swimLaneObj.id = i;
+							swimLaneObj.title = '\r\n'+ajaxdata.swimLaneVOs[i].title;
+							swimLaneObj.x = ajaxdata.swimLaneVOs[i].source.split(',')[0];
+							swimLaneObj.y = ajaxdata.swimLaneVOs[i].source.split(',')[1];
+							swimLaneObj.width = ajaxdata.swimLaneVOs[i].target.split(',')[0];
+							swimLaneObj.height = swimLaneTotalHeight;
+							allSwimLaneObjArr.push(swimLaneObj);
+						}
+						if (i == ajaxdata.swimLaneVOs.length - 1) {
+							graph.insertEdge(parent,'','',
+									graph.insertVertex(parent,'','',swimLaneTitleBorderLeft, swimLaneTitleBorderHeight, 0, 0),
+									graph.insertVertex(parent,'','',swimLaneTitleBorderRight, swimLaneTitleBorderHeight, 0, 0),
+									'edgeStyle=shape;endArrow=none;');
+						}
+					}
+					// 重新调整画布大小
+					$('#graphContainer').css('width', gcWidth + 'px');
+					$('#graphContainer').css('height', gcHeight + 'px');
+					$('#graphContainer').append('<div style="position:absolute;top:10px;left:70px;width:'+(gcWidth-70)+'px;height:39px;background-Color:#ff3;z-index:-1;"></div>');
+				}
+				
+				//计算连线
+				if (ajaxdata.planLinkVOs != null && ajaxdata.planLinkVOs.length > 0) {
+					for (var i = 0; i < ajaxdata.planLinkVOs.length; i++) {
+						try {
+							var linkStyle = 'edgeStyle=shape;strokeColor=' + ajaxdata.planLinkVOs[i].color + ';fillColor=green;';
+
+							if (ajaxdata.planLinkVOs[i].type == '') {
+								linkStyle = 'crossover;' + linkStyle;
+							}
+							
+							// 构造link的所有关键属性
+							var linkObj = new Object();
+							linkObj.id = 'link_'+(i+1);
+							linkObj.sourceXY = getPlanXY(ajaxdata.planLinkVOs[i].source);
+							linkObj.targetXY = getPlanXY(ajaxdata.planLinkVOs[i].target);
+							linkObj.linkStyle = linkStyle;
+							linkObj.type = ajaxdata.planLinkVOs[i].type;
+							linkObj.point = ajaxdata.planLinkVOs[i].point;
+							allLinkObjArr.push(linkObj);
+						} catch (e) {
+						}
+					}
+				}
+				//}, 1000);
+				showWaitProgressDiv('', false);
+			} catch (e) {
+
+			} finally {
+				// 结束更新事务
+				graph.getModel().endUpdate();
+			}
+
+			// 设置自动扩大鼠标悬停
+			graph.panningHandler.autoExpand = true;
+
+			graph.setEnabled(false);
+			// 实现属性面板
+			graph.getSelectionModel().addListener(mxEvent.CHANGE,
+					function(sender, evt) {
+						//selectionChanged(graph);
+					});
+			mxPopupMenu.prototype.autoExpand = true;
+		}else{
+			mxUtils.error('Browser is not supported!', 200, false);
+		}
+		//initTip();//初始化tip
+		drawSwimLaneByScroll(0, ($(window).scrollLeft()+$(window).width()));
+		drawPlanByScroll(0, 0, ($(window).scrollLeft()+$(window).width()), ($(window).scrollTop()+$(window).height()));
+		drawLinkByScroll(0, 0, ($(window).scrollLeft()+$(window).width()), ($(window).scrollTop()+$(window).height()));
+	};
+
+	var createColorIndex = function(graph, parent) {
+		graph.insertVertex(parent, null, "拟制中", 5, 10, 60, 20, 'strokeColor=#006006;fillColor=#fff2cc');
+		graph.insertVertex(parent, null, "待接收", 5, 40, 60, 20, 'strokeColor=#006006;fillColor=#e8f3ac');
+		graph.insertVertex(parent, null, "已发布", 5, 70, 60, 20, 'strokeColor=#006006;fillColor=#c9d1f2');
+		graph.insertVertex(parent, null, "执行中", 5, 100, 60, 20, 'strokeColor=#006006;fillColor=#d5e8d4');
+		graph.insertVertex(parent, null, "完工确认", 5, 130, 60, 20, 'strokeColor=#006006;fillColor=#e1d5e7');
+		graph.insertVertex(parent, null, "已完工", 5, 160, 60, 20, 'strokeColor=#006006;fillColor=#dae8fc');
+		graph.insertVertex(parent, null, "已废弃", 5, 190, 60, 20, 'strokeColor=#006006;fillColor=#fde010');
+	}
+	
+	function drawPlanByScroll(scrollLeft_, scrollTop_, right_, bottom_) {
+		for(var i=0; i<allPlanObjArr.length; i++) {
+			//判断左上角的点是否在显示区域中
+			if(allPlanObjArr[i].x >= scrollLeft_ && allPlanObjArr[i].x <= right_ && allPlanObjArr[i].y >= scrollTop_ && allPlanObjArr[i].y <= bottom_) {
+				if(!ifDrawPlan(allPlanObjArr[i].id)) {
+					$('#graphContainer').append(allPlanObjArr[i].htmlStr);
+					//$('#graphContainer').html($('#graphContainer').html() + allPlanObjArr[i].htmlStr);
+					haveDrawPlanIdsArr.push(allPlanObjArr[i].id);
+				}
+			}
+			//判断左下角的点是否在显示区域中
+			else if(allPlanObjArr[i].x >= scrollLeft_ && allPlanObjArr[i].x <= right_ && allPlanObjArr[i].y+100 >= scrollTop_ && allPlanObjArr[i].y+100 <= bottom_) {
+				if(!ifDrawPlan(allPlanObjArr[i].id)) {
+					$('#graphContainer').append(allPlanObjArr[i].htmlStr);
+					//$('#graphContainer').html($('#graphContainer').html() + allPlanObjArr[i].htmlStr);
+					haveDrawPlanIdsArr.push(allPlanObjArr[i].id);
+				}
+			}
+			//判断右上角的点是否在显示区域中
+			else if(allPlanObjArr[i].x+100 >= scrollLeft_ && allPlanObjArr[i].x+100 <= right_ && allPlanObjArr[i].y >= scrollTop_ && allPlanObjArr[i].y <= bottom_) {
+				if(!ifDrawPlan(allPlanObjArr[i].id)) {
+					$('#graphContainer').append(allPlanObjArr[i].htmlStr);
+					//$('#graphContainer').html($('#graphContainer').html() + allPlanObjArr[i].htmlStr);
+					haveDrawPlanIdsArr.push(allPlanObjArr[i].id);
+				}
+			}
+			//判断右下角的点是否在显示区域中
+			else if(allPlanObjArr[i].x+100 >= scrollLeft_ && allPlanObjArr[i].x+100 <= right_ && allPlanObjArr[i].y+100 >= scrollTop_ && allPlanObjArr[i].y+100 <= bottom_) {
+				if(!ifDrawPlan(allPlanObjArr[i].id)) {
+					$('#graphContainer').append(allPlanObjArr[i].htmlStr);
+					//$('#graphContainer').html($('#graphContainer').html() + allPlanObjArr[i].htmlStr);
+					haveDrawPlanIdsArr.push(allPlanObjArr[i].id);
+				}
+			}
+		}
+	}
+	function ifDrawPlan(planId) {
+		if(haveDrawPlanIdsArr.length == 0) {
+			return false;
+		}
+		else {
+			for(var i=0; i<haveDrawPlanIdsArr.length; i++) {
+				if(planId == haveDrawPlanIdsArr[i]) {
+					return true;
+				}
+			}
+			return false;
+		}
+	}
+	
+	function drawSwimLaneByScroll(scrollLeft_, right_) {
+		var graph = new mxGraph(document.getElementById('graphContainer'));
+		staticGraph = graph;
+		var parent = staticGraph.getDefaultParent();
+		for(var i=0; i<allSwimLaneObjArr.length; i++) {
+			if(allSwimLaneObjArr[i].x >= scrollLeft_ && allSwimLaneObjArr[i].x <= right_) {
+				if(!ifDrawSwimLane(allSwimLaneObjArr[i].id)) {
+					staticGraph.insertVertex(parent, '', allSwimLaneObjArr[i].title, allSwimLaneObjArr[i].x,
+									allSwimLaneObjArr[i].y, allSwimLaneObjArr[i].width,
+									allSwimLaneObjArr[i].height, 'swimLaneStyle');
+					haveDrawSwimLaneIdsArr.push(allSwimLaneObjArr[i].id);
+				}
+			}
+		}
+	}
+	function ifDrawSwimLane(swimLaneId) {
+		if(haveDrawSwimLaneIdsArr.length == 0) {
+			return false;
+		}
+		else {
+			for(var i=0; i<haveDrawSwimLaneIdsArr.length; i++) {
+				if(swimLaneId == haveDrawSwimLaneIdsArr[i]) {
+					return true;
+				}
+			}
+			return false;
+		}
+	}
+
+	function drawLinkByScroll(scrollLeft_, scrollTop_, right_, bottom_) {
+		var parent = staticGraph.getDefaultParent();
+		for(var i=0; i<allLinkObjArr.length; i++) {
+			var linkObj_ = allLinkObjArr[i];
+			var sourceX = linkObj_.sourceXY.split(',')[0];
+			var sourceY = linkObj_.sourceXY.split(',')[1];
+			var targetX = linkObj_.targetXY.split(',')[0];
+			var targetY = linkObj_.targetXY.split(',')[1];
+			var linkStyle = linkObj_.linkStyle;
+			if((sourceX >= scrollLeft_ && sourceX <= right_ && sourceY >= scrollTop_ && sourceY <= bottom_) || (targetX >= scrollLeft_ && targetX <= right_ && targetY >= scrollTop_ && targetY <= bottom_)) {
+				if(!ifDrawLink(linkObj_.id)) {
+					if (linkObj_.type == 'ss') {
+						var linkObj = staticGraph.insertEdge(parent, '', '',
+								staticGraph.insertVertex(parent, '', '',
+										linkObj_.sourceXY.split(',')[0],
+										linkObj_.sourceXY.split(',')[1] + 30, 0,
+										0), staticGraph.insertVertex(parent,
+										'', '', linkObj_.targetXY.split(',')[0],
+										linkObj_.targetXY.split(',')[1] + 30, 0,
+										0), linkStyle);
+					} else if (linkObj_.type == 'ff') {
+						var linkObj = staticGraph.insertEdge(parent, '',
+								linkObj_.type,
+								staticGraph.insertVertex(parent, '', '',
+										linkObj_.sourceXY.split(',')[0] + 60,
+										linkObj_.sourceXY.split(',')[1] + 30, 0,
+										0), staticGraph.insertVertex(parent,
+										'', '',
+										linkObj_.targetXY.split(',')[0] + 60,
+										linkObj_.targetXY.split(',')[1] + 30, 0,
+										0), linkStyle);
+					} else {
+						var linkObj = staticGraph.insertEdge(parent,'',linkObj_.type,
+										staticGraph.insertVertex(parent,'','', parseInt(linkObj_.sourceXY.split(',')[0],10) + 60,parseInt(linkObj_.sourceXY.split(',')[1],10) + 40, 0, 0),
+										staticGraph.insertVertex(parent,'','', parseInt(linkObj_.targetXY.split(',')[0]),parseInt(linkObj_.targetXY.split(',')[1],10) + 40,0, 0),
+										linkStyle);
+						if (linkObj_.point != null && linkObj_.point.length > 0) {
+							for (var j = 0; j < linkObj_.point.length; j++) {
+								linkObj.getGeometry().points = [ {
+									x : parseInt(linkObj_.point[j].split(',')[0], 10),
+									y : parseInt(linkObj_.point[j].split(',')[1], 10) + 10
+								} ];
+							}
+						}
+					}
+					haveDrawLinkIdsArr.push(linkObj_.id);
+				}
+			}
+		}
+		
+	}
+	function ifDrawLink(linkId) {
+		if(haveDrawLinkIdsArr.length == 0) {
+			return false;
+		}
+		else {
+			for(var i=0; i<haveDrawLinkIdsArr.length; i++) {
+				if(linkId == haveDrawLinkIdsArr[i]) {
+					return true;
+				}
+			}
+			return false;
+		}
+	}
+</script>
+</head>
+
+<script>
+	$(function() {
+		var url = "/graphController.do?drawPlan&planViewInfoId="+parseURL(document.URL).params.paramArr.split('_')[2];
+		url = '/'+parseURL(document.URL).params.paramArr.split('_')[1]+url;
+		showWaitProgressDiv('正在绘制中，请稍候...');
+		try {
+			$.ajax({
+				type : "POST",
+				url : url,
+				async : true,
+				data : {
+					'projectId' : parseURL(document.URL).params.paramArr.split('_')[0],
+					'm' : parseURL(document.URL).params.m,
+					'planViewInfoId' : parseURL(document.URL).params.paramArr.split('_')[2]
+				},
+				dataType : "json",
+				success : function(data, data2) {
+					if (data != null) {
+						main(document.getElementById('graphContainer'), data);
+						//$('#graphContainer').html($.toJSON(data.planVOs));
+					} else {
+						showWaitProgressDiv('', false);
+					}
+				},
+				error : function() {
+					alert('请求数据出错');
+				}
+			});
+
+		} catch (e) {
+			alert(e);
+		}
+
+		var timeout = null;
+		$(window).scroll(function(){
+			if(timeout) {
+				clearTimeout(timeout);
+			}
+			timeout = setTimeout(function(){
+				//alert($(window).scrollLeft()+','+$(window).scrollTop());
+				drawSwimLaneByScroll($(window).scrollLeft(), ($(window).scrollLeft()+$(window).width()));
+				drawPlanByScroll($(window).scrollLeft(), $(window).scrollTop(), ($(window).scrollLeft()+$(window).width()), ($(window).scrollTop()+$(window).height()));
+				drawLinkByScroll($(window).scrollLeft(), $(window).scrollTop(), ($(window).scrollLeft()+$(window).width()), ($(window).scrollTop()+$(window).height()));
+			},300);
+		});
+	});
+	function getPlanXY(planOid) {
+		for (i = 0; i < planListData.planVOs.length; i++) {
+			if (planListData.planVOs[i].planOid == planOid) {
+				return planListData.planVOs[i].x + ','
+						+ planListData.planVOs[i].y;
+			}
+		}
+	}
+	function getTipContent(planVO) {
+		var tooltipStr = 'ID：'+planVO.lineNumber+'&#13;';
+		tooltipStr += '计划名称：'+planVO.planName+'&#13;';
+		tooltipStr += '计划工期：'+planVO.times+'&#13;';
+		tooltipStr += '开始时间：'+planVO.beginTimeStr+'&#13;';
+		tooltipStr += '结束时间：'+planVO.endTimeStr+'&#13;';
+		tooltipStr += '计划状态：'+planVO.status;
+		return tooltipStr;
+	}
+	function isFirefoxOs() {
+		if(isFirefox=navigator.userAgent.indexOf('Firefox') > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	function getStrLength(inputStr) {
+		var bytesCount = 0;
+		for (var i = 0; i < inputStr.length; i++) {
+			var c = inputStr.charAt(i);
+			if (/^[\u0000-\u00ff]$/.test(c)) {
+				bytesCount += 1;
+			} else {
+				bytesCount += 2;
+			}
+		}
+		return bytesCount;
+	}
+</script>
+<!-- 页面载入时启动程序 -->
+<body>
+	<form id="exportForm" action="/lrds/graph/imageExport" method="post"
+		target="_blank" style="display: none">
+		<textarea name="xml" id="xmlSource"
+			style="position: absolute; width: 800px; height: 600px; overflow: auto; top: 200px; left: 400px"></textarea>
+		<input type="submit" value="exportImg" />
+	</form>
+	<input type="button" value="export" onclick="exportImg222()"
+		style="display: none" />
+	<br />
+	<input type="button" value="hidden"
+		onclick="$('#xmlSource').css('display','none')" style="display: none" />
+	<div style="position: absolute; top: 0px; right: 0px;z-index: 99;">
+		<a href="#" onclick='window.open("/ids-pm-web/helpDoc/NetworkDiagram.html")'><img src="images/help.png" alt="帮助"/></a>
+	</div>
+	<div id="tooltip" style="position: absolute;">&nbsp;</div>
+	<!-- 创建带网格壁纸和曲线的一个容器  -->
+	<div id="graphContainer"
+		style="overflow: hidden; width: 760px; height: 600px; background: url('editors/images/grid.gif'); cursor: default; border-color: green">
+	</div>
+	<div id="msg"></div>
+</body>
+</html>

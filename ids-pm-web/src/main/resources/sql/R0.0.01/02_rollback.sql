@@ -1,0 +1,3 @@
+delete from FD_FUNCTION_APP_RELATE where id='4028ef506ca7d221016ca8fb7f9b014a';
+delete from FD_FUNCTION_APP_RELATE where id='4028ef506c8da248016c8e40132f0068';
+delete from FD_FUNCTION_APP_RELATE where id='4028ef506c8da248016c8e3b98660062';

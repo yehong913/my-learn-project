@@ -1,0 +1,27 @@
+@charset "utf-8";
+/* CSS Document */
+.basic{ background:url(../img/icon.png) ; height:16px; width:16px; display:inline-block; vertical-align:middle; margin:0 5px}
+
+.icon_news{ background-position:0 -16px;}
+.icon_zan{ background-position:-16px -16px;}
+.icon_comment{ background-position:0px -16px;}
+.icon_share{ background-position:-48px -16px;}
+.icon_collection{ background-position:-64px -16px;}
+.icon_download{ background-position:-80px -16px;}
+.icon_mission{ background-position:-96px -16px;}
+.icon_follow{ background-position:-112px -16px;}
+.icon_up{ background-position:-128px -16px;}
+.icon_down{ background-position:-144px -16px;}
+.icon_mail{ background-position:-160px -16px;}
+.icon_station{ background-position:-176px -16px;}
+.icon_reply{ background-position:-192px -16px;}
+.icon_back{ background-position:-208px -16px;}
+.icon_borrowing{ background-position:-224px -16px;}
+.icon_preview{ background-position:-240px -16px;}
+.icon_fans{ background-position:-256px -16px;}
+.icon_group{ background-position:-272px -16px;}
+.icon_library{ background-position:-288px -16px;}
+.icon_library{ background-position:-288px -16px;}
+.icon_dustbin{background-position:-304px -16px;}
+.icon_ascending{background-position:-320px -16px;}
+.icon_descending{background-position:-336px -16px;}

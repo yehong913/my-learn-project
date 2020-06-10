@@ -1,0 +1,424 @@
+<!Doctype html>
+<html xmlns=http://www.w3.org/1999/xhtml>
+	<head>
+	<meta http-equiv=Content-Type content="text/html;charset=utf-8">
+	<link rel="stylesheet" type="text/css"href="webpage/com/glaway/ids/jquery-easyui/themes/default/easyui.css">
+	<script src="../../javascript/jquery-1.8.2.js"></script>
+	<script src="../../javascript/global.js"></script>
+	<!-- 引入支持库文件 -->
+	<script type="text/javascript" src="../src/js/mxClient.js"></script>
+	
+	<title>级联网络图</title>
+
+	<style type="text/css">
+		body div.mxPopupMenu {
+			-webkit-box-shadow: 3px 3px 6px #C0C0C0;
+			-moz-box-shadow: 3px 3px 6px #C0C0C0;
+			box-shadow: 3px 3px 6px #C0C0C0;
+			background: white;
+			position: absolute;
+			border: 3px solid #e7e7e7;
+			padding: 3px;
+		}
+		body table.mxPopupMenu {
+			border-collapse: collapse;
+			margin: 0px;
+		}
+		body tr.mxPopupMenuItem {
+			color: black;
+			cursor: default;
+		}
+		body td.mxPopupMenuItem {
+			padding: 6px 60px 6px 30px;
+			font-family: Arial;
+			font-size: 10pt;
+		}
+		body td.mxPopupMenuIcon {
+			background-color: white;
+			padding: 0px;
+		}
+		body tr.mxPopupMenuItemHover {
+			background-color: #eeeeee;
+			color: black;
+		}
+		table.mxPopupMenu hr {
+			border-top: solid 1px #cccccc;
+		}
+		table.mxPopupMenu tr {
+			font-size: 4pt;
+		}
+	</style>
+
+	<!-- 如果本文件的包与src不是在同一个目录,就要将basepath设置到src目录下 -->
+	<script type="text/javascript">
+		mxBasePath = '../src';
+	</script>
+	
+	<!-- 示例代码 -->
+	<script type="text/javascript">
+		var staticPlanMap = new HashMap();
+		var aaa ;
+		var staticGraph;
+		// 程序在此方法中启动 
+		function main(container, ajaxdata)
+		{
+			// 检查浏览器支持
+			if (!mxClient.isBrowserSupported())
+			{
+				mxUtils.error('Browser is not supported!', 200, false);
+			}
+			else
+			{
+				// 禁用浏览器自带右键菜单
+				mxEvent.disableContextMenu(document.body);
+				
+				// 去锯齿效果
+				mxRectangleShape.prototype.crisp = true;
+				
+				// 在容器中创建图形
+				var graph = new mxGraph(container);
+				staticGraph = graph;
+
+				// 禁用调整大小
+				graph.setCellsResizable(false);
+				
+				graph.setPanning(true);
+				graph.setTooltips(true);
+				graph.setConnectable(true);
+
+				// 创建下拉菜单
+				new mxRubberband(graph);
+				
+				// 创建默认窗体
+				var parent = graph.getDefaultParent();
+								
+				// 启动更新事务
+				graph.getModel().beginUpdate();
+				
+				// 启用导航线  
+        mxGraphHandler.prototype.guidesEnabled = true;
+				
+        var style = graph.getStylesheet().getDefaultVertexStyle();
+		
+		style = mxUtils.clone(style);
+		style[mxConstants.STYLE_SHAPE] = mxConstants.SHAPE_ELLIPSE;
+		style[mxConstants.STYLE_PERIMETER] = mxPerimeter.EllipsePerimeter;
+		delete style[mxConstants.STYLE_ROUNDED];
+		graph.getStylesheet().putCellStyle('state', style);
+
+		style = graph.getStylesheet().getDefaultEdgeStyle();
+		style = mxUtils.clone(style);
+		style[mxConstants.STYLE_DASHED] = true;
+		graph.getStylesheet().putCellStyle('crossover', style);
+		
+		graph.getLabel = function(cell)
+		{
+			if(cell.value!=null) {
+				if(cell.value.first!=null) {
+					var table = document.createElement('table');
+					table.style.height = '100%';
+					table.style.width = '100%';
+					
+					var body = document.createElement('tbody');
+					var tr1 = document.createElement('tr');
+					var td1 = document.createElement('td');
+					td1.style.fontSize = '12px';
+					mxUtils.write(td1, cell.value.first==null?'':cell.value.first);
+					
+					var tr2 = document.createElement('tr');
+					var td2 = document.createElement('td');
+					td2.style.fontSize = '12px';
+					mxUtils.write(td2, cell.value.second==null?'':cell.value.second);
+					
+					var tr3 = document.createElement('tr');
+					var td3 = document.createElement('td');
+					td3.style.fontSize = '12px';
+					td3.style.color = 'blue';
+					mxUtils.write(td3, cell.value.thrid==null?'':cell.value.thrid);
+					
+					tr1.appendChild(td1);
+					tr2.appendChild(td2);
+					tr3.appendChild(td3);
+					body.appendChild(tr1);
+					body.appendChild(tr2);
+					body.appendChild(tr3);
+					table.appendChild(body);
+					
+					return table;
+				} else {
+					return cell.value;
+				}
+			}
+		};
+		
+		// Installs a custom tooltip for cells
+		graph.getTooltipForCell = function(cell)
+		{
+			aaa = cell;
+			/*
+			var style = "top:" + cell.geometry.y + "px;left:" + cell.geometry.x + "px";
+			$("#tooltip").attr("style","position:absolute;" + style);
+			$("#tooltip").tooltip({    position: 'right',    
+				content: '<div style="color:#fff;width:400px;">This is the tooltip message.</div>',    
+				onShow: function(){        
+					$(this).tooltip('tip').css({
+						backgroundColor: '#666',            
+						borderColor: '#666'        
+						});    
+					}
+				});
+			$("#tooltip").tooltip("show");
+			*/
+			if(cell!=null && isNaN(cell.id) && cell.id.indexOf('P_')==0) {
+				var cellId = cell.id.split('_')[0]+'_'+cell.id.split('_')[1];
+				var tooltipStr = '<table width="300">';
+				tooltipStr += '<tr><td width="60px">ID：</td><td>'+staticPlanMap.get(cellId).lineNumber+'</td></tr>';
+				tooltipStr += '<tr><td>计划名称：</td><td>'+staticPlanMap.get(cellId).planName+'</td></tr>';
+				tooltipStr += '<tr><td>计划工期：</td><td>'+staticPlanMap.get(cellId).times+'</td></tr>';
+				tooltipStr += '<tr><td>开始时间：</td><td>'+staticPlanMap.get(cellId).beginTimeStr+'</td></tr>';
+				tooltipStr += '<tr><td>结束时间：</td><td>'+staticPlanMap.get(cellId).endTimeStr+'</td></tr>';
+				tooltipStr += '<tr><td>计划状态：</td><td>'+staticPlanMap.get(cellId).status+'</td></tr>';
+				tooltipStr += '</table>';
+				return '<div style="width:300px;">' + tooltipStr + '</div>';
+			}
+			
+		}
+				
+				try
+				{
+					var planMap = new HashMap();//用户于存放计划对象
+					var planMap2 = new HashMap();//用于存放坐标x和y
+					var planGraph = false;
+					var swimGraph = false;
+					var linkGraph = false;
+					//画事例图
+					createColorIndex(graph, parent);
+					//画计划
+					if(ajaxdata.planVOs!=null && ajaxdata.planVOs.length>0) {
+						for(var i=0; i<ajaxdata.planVOs.length; i++) {
+							staticPlanMap.put('P_'+ajaxdata.planVOs[i].planOid, ajaxdata.planVOs[i]);
+							var planObj = createPlan(graph, parent, 'P_'+ajaxdata.planVOs[i].planOid, ajaxdata.planVOs[i].lineNumber, ajaxdata.planVOs[i].planName, ajaxdata.planVOs[i].times, ajaxdata.planVOs[i].x, ajaxdata.planVOs[i].y, ajaxdata.planVOs[i].planDep, ajaxdata.planVOs[i].color);
+							planMap.put(ajaxdata.planVOs[i].planOid, planObj);
+							planMap2.put(ajaxdata.planVOs[i].planOid, ajaxdata.planVOs[i].x+','+ajaxdata.planVOs[i].y);
+						}
+						planGraph = true;
+					}
+					//画泳道
+					setTimeout(function(){
+						if(ajaxdata.swimLaneVOs!=null && ajaxdata.swimLaneVOs.length>0) {
+							var gcWidth = $('#graphContainer').css('width');
+							gcWidth = gcWidth.substring(0, gcWidth.indexOf('px'));//截取px
+							var gcHeight = $('#graphContainer').css('height');
+							gcHeight = gcHeight.substring(0, gcHeight.indexOf('px'));//截取px
+							for(var i=0; i<ajaxdata.swimLaneVOs.length; i++) {
+								//泳道分隔竖线
+								if(ajaxdata.swimLaneVOs[i].type=='0') {
+									graph.insertEdge(parent, '', '', graph.insertVertex(parent, '', '', ajaxdata.swimLaneVOs[i].source.split(',')[0], ajaxdata.swimLaneVOs[i].source.split(',')[1], 0, 0), graph.insertVertex(parent, '', '', ajaxdata.swimLaneVOs[i].target.split(',')[0], ajaxdata.swimLaneVOs[i].target.split(',')[1], 0, 0), 'edgeStyle=shape;endArrow=none;strokeColor=green;');
+									//判断泳道线是否超出了graphContainer容器的长和宽
+									if(parseInt(ajaxdata.swimLaneVOs[i].target.split(',')[0],10) > gcWidth) {
+										gcWidth = parseInt(ajaxdata.swimLaneVOs[i].target.split(',')[0],10);
+									}
+									if(parseInt(ajaxdata.swimLaneVOs[i].target.split(',')[1],10) > gcHeight) {
+										gcHeight = parseInt(ajaxdata.swimLaneVOs[i].target.split(',')[1],10);
+									}
+								}
+								//泳道标题
+								if(ajaxdata.swimLaneVOs[i].type=='1') {
+									graph.insertVertex(parent, '', ajaxdata.swimLaneVOs[i].title, ajaxdata.swimLaneVOs[i].source.split(',')[0], ajaxdata.swimLaneVOs[i].source.split(',')[1], ajaxdata.swimLaneVOs[i].target.split(',')[0], ajaxdata.swimLaneVOs[i].target.split(',')[1]);
+								}
+							}
+							$('#graphContainer').css('width', gcWidth+'px');
+							$('#graphContainer').css('height', gcHeight+'px');
+						}
+						swimGraph = true;
+					}, 1000);
+					//画连线
+					//setTimeout(function(){
+						if(ajaxdata.planLinkVOs!=null && ajaxdata.planLinkVOs.length>0) {
+							for(var i=0; i<ajaxdata.planLinkVOs.length; i++) {
+								try {
+									var linkStyle = 'edgeStyle=shape;strokeColor='+ajaxdata.planLinkVOs[i].color+';fillColor=green;';
+									if(ajaxdata.planLinkVOs[i].type == '') {
+										linkStyle = 'crossover;'+linkStyle;
+									}
+									if(ajaxdata.planLinkVOs[i].type == 'ss') {
+										var linkObj = graph.insertEdge(parent, '', '', 
+												graph.insertVertex(parent, '', '', planMap2.get(ajaxdata.planLinkVOs[i].source).split(',')[0], parseInt(planMap2.get(ajaxdata.planLinkVOs[i].source).split(',')[1],10)+30, 0, 0), 
+												graph.insertVertex(parent, '', '', planMap2.get(ajaxdata.planLinkVOs[i].target).split(',')[0], parseInt(planMap2.get(ajaxdata.planLinkVOs[i].target).split(',')[1],10)+30, 0, 0),
+												linkStyle);
+									} else if(ajaxdata.planLinkVOs[i].type == 'ff') {
+										var linkObj = graph.insertEdge(parent, '', ajaxdata.planLinkVOs[i].type, 
+												graph.insertVertex(parent, '', '', parseInt(planMap2.get(ajaxdata.planLinkVOs[i].source).split(',')[0],10)+60, parseInt(planMap2.get(ajaxdata.planLinkVOs[i].source).split(',')[1],10)+30, 0, 0), 
+												graph.insertVertex(parent, '', '', parseInt(planMap2.get(ajaxdata.planLinkVOs[i].target).split(',')[0],10)+60, parseInt(planMap2.get(ajaxdata.planLinkVOs[i].target).split(',')[1],10)+30, 0, 0),
+												linkStyle);
+									} else {
+										var linkObj = graph.insertEdge(parent, '', '', planMap.get(ajaxdata.planLinkVOs[i].source), planMap.get(ajaxdata.planLinkVOs[i].target), linkStyle);
+										if(ajaxdata.planLinkVOs[i].point!=null && ajaxdata.planLinkVOs[i].point.length>0) {
+											for(var j=0; j<ajaxdata.planLinkVOs[i].point.length; j++) {
+												linkObj.getGeometry().points = [{x: parseInt(ajaxdata.planLinkVOs[i].point[j].split(',')[0],10), y: parseInt(ajaxdata.planLinkVOs[i].point[j].split(',')[1],10)}];
+											}
+										}
+									}
+								} catch(e) {}
+							}
+						}
+						linkGraph = true;
+					//}, 1000);
+					var hidMsg = window.setInterval(function(){
+						if(planGraph && swimGraph && linkGraph) {
+							showWaitProgressDiv('',false);
+							window.clearInterval(hidMsg);
+						}
+					}, 1000);
+				} catch(e) {
+					
+				}
+				finally
+				{
+					// 结束更新事务
+					graph.getModel().endUpdate();
+				}
+				
+				// 设置自动扩大鼠标悬停
+				graph.panningHandler.autoExpand = true;
+				
+				graph.setEnabled(false);
+				// 实现属性面板
+				graph.getSelectionModel().addListener(mxEvent.CHANGE, function(sender, evt)
+				{
+					//selectionChanged(graph);
+				});
+				mxPopupMenu.prototype.autoExpand = true;
+			}
+
+		};
+		
+		
+	/**
+	 * 创建计划节点
+	 * @param graph		容器
+	 * @param parent	窗体
+	 * @param planid	计划主键id
+	 * @param planseq	计划序号
+	 * @param planname	计划名称
+	 * @param plandays	计划工时
+	 * @param x			节点x坐标轴
+	 * @param y			节点y坐标轴
+	 * @param depname	部门名称
+	 * @param color	缺省参数，计划节点颜色
+	 */
+	var createPlan = function(graph, parent, planid, planseq, planname, plandays, x, y, depname, color) {
+		strokeColor = color.split(',')[0];
+		fillColor = color.split(',')[1];
+		fontColor = color.split(',')[2];
+		var planWidth = 60;//宽20px
+		var planHeight = 60;//高20px
+		//计划信息描述
+		var value = new Object();
+		value.first = planseq;
+		if(planname.length>5) {
+			planname = planname.substring(0,5)+'.';
+		}
+		value.second = planname;
+		value.thrid = plandays;
+		//计划节点生成
+		var planV = graph.insertVertex(parent, planid, '', x, y, planWidth, planHeight, 'state;strokeColor='+strokeColor+';fillColor='+fillColor+';fontColor='+fontColor+';overflow=fill;width=100%;height=100%');
+		graph.insertEdge(parent, planid+'_lU', '', graph.insertVertex(parent, '', '', x+2, y+20, 0, 0), graph.insertVertex(parent, '', '', x-2+planWidth, y+20, 0, 0), 'edgeStyle=shape;endArrow=none;strokeColor='+strokeColor+';top');
+		graph.insertEdge(parent, planid+'_lD', '', graph.insertVertex(parent, '', '', x+2, y+40, 0, 0), graph.insertVertex(parent, '', '', x-2+planWidth, y+40, 0, 0), 'edgeStyle=shape;endArrow=none;strokeColor='+strokeColor+';top');
+		var planActivityName = value.second;
+		//if(planActivityName.length>5) {
+		//	planActivityName = planActivityName.substring(0,5);
+		//}
+		//alert(planActivityName+' length:'+getStrLength(planActivityName));
+		if(getStrLength(planActivityName)>9) {
+			planActivityName = planActivityName.substring(0,planActivityName.length-1);
+		}
+		graph.insertVertex(parent, planid+'_vF', value.first+'', x, y, 60, 20, 'strokeColor=none;fillColor=none');
+		graph.insertVertex(parent, planid+'_vS', planActivityName+'', x, y+20, 60, 20, 'strokeColor=none;fillColor=none')
+		graph.insertVertex(parent, planid+'_vT', value.thrid+'', x, y+40, 60, 20, 'strokeColor=none;fillColor=none;fontColor=blue');
+		graph.insertVertex(parent, planid+'_dep', depname+'', x, y+58, 60, 20, 'strokeColor=none;fillColor=none');
+		return planV;
+	};
+	
+	
+	var createColorIndex = function(graph, parent){
+		graph.insertVertex(parent, null, "拟制中", 5, 10, 60, 20, 'strokeColor=#0000ff;fillColor=#87ceeb');
+		graph.insertVertex(parent, null, "待接收", 5, 40, 60, 20, 'strokeColor=#006006;fillColor=#00cd66');
+		graph.insertVertex(parent, null, "已发布", 5, 70, 60, 20, 'strokeColor=#006006;fillColor=#00cd66');
+		graph.insertVertex(parent, null, "已下达", 5, 100, 60, 20, 'strokeColor=#006006;fillColor=#00cd66');
+		graph.insertVertex(parent, null, "已完工", 5, 130, 60, 20, 'strokeColor=#525252;fillColor=#e3e3e3');
+		graph.insertVertex(parent, null, "完工反馈中", 5, 160, 60, 20, 'strokeColor=#ff0000;fillColor=#fde0e0');
+		graph.insertVertex(parent, null, "已废弃", 5, 190, 60, 20, 'strokeColor=#ff0000;fillColor=#fde010');
+		//graph.insertVertex(parent,null,"已关闭", 0, 130, 60, 20, 'strokeColor=#ff0000;fillColor=#ff2090');
+		//graph.insertVertex(parent,null,"已暂停", 0, 160, 60, 20, 'strokeColor=#ff0000;fillColor=#fde010');
+	}
+
+	function exportImg222() {
+		var xml = mxUtils.getViewXml(staticGraph);
+      	if(document.all){
+      		xml = xml.xml;
+      	}else{
+      		xml = (new XMLSerializer()).serializeToString(xml);
+      	}
+      	xml = encodeURIComponent(xml);
+		$('#xmlSource').val(xml);
+		$('#exportForm').css('display', 'block');
+	}
+	</script>
+</head>
+
+<script>
+$(function(){
+	showWaitProgressDiv('正在绘制中，请稍候...');
+	try
+	{
+		$.ajax({
+			type : "POST",
+			url : '${pageContext.request.contextPath }/graphController.do?drawPlan',
+			async : true,
+			data : {'projectId':parseURL(document.URL).params.projectId,'m':parseURL(document.URL).params.m},
+			dataType : "json",
+			success : function(data, data2) {
+				if(data!=null) {
+					main(document.getElementById('graphContainer'), data);
+				} else {
+					showWaitProgressDiv('',false);
+				}
+			},
+			error : function() {
+				alert('请求数据出错');
+			}
+		});
+	} catch(e) {
+		
+	}
+});
+
+function getStrLength(inputStr) {
+	var bytesCount = 0;
+	for(var i=0; i<inputStr.length; i++) {
+		var c = inputStr.charAt(i);
+		if(/^[\u0000-\u00ff]$/.test(c)) {
+			bytesCount += 1;
+		} else {
+			bytesCount += 2;
+		}
+	}
+	return bytesCount;
+}
+</script>
+<!-- 页面载入时启动程序 -->
+<body>
+<form id="exportForm" action="/lrds/graph/imageExport" method="post" target="_blank" style="display:none">
+<textarea name="xml" id="xmlSource" style="position:absolute;width:800px;height:600px;overflow:auto;top:200px;left:400px"></textarea>
+<input type="submit" value="exportImg"/>
+</form>
+<input type="button" value="export" onclick="exportImg222()" style="display:none"/><br/><input type="button" value="hidden" onclick="$('#xmlSource').css('display','none')" style="display:none"/>
+<div id="tooltip" style="position:absolute;">&nbsp;   </div>
+	<!-- 创建带网格壁纸和曲线的一个容器  -->
+	<div id="graphContainer"
+		style="overflow:auto;width:1440px;height:900px;background:url('editors/images/grid.gif');cursor:default;border-color:green">
+	</div>
+	<div id="msg"></div>
+</body>
+</html>

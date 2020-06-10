@@ -1,0 +1,135 @@
+.icon{ background:url(../img/IconLibrary.png) no-repeat; height:16px; width:16px; display:inline-block; vertical-align:middle;}
+
+.icon_home{
+	 background-position:0 0; padding-top:5px;/*主页*/
+}
+.icon_data{
+	background-position:-16px 0; padding-top:5px;
+}
+.icon_follow{
+	background-position:-32px 1px;  /*关注*/
+}
+.icon_follow_cancle{
+	background-position:-48px 1px; /*取消关注*/
+}
+.icon_join{
+	background-position:-64px 0; /*加入*/
+}
+.icon_joinin{
+	background-position:-80px 0; /*已加入*/
+}
+.icon_audit{
+	background-position:-96px 0; /*待审核*/
+}
+.icon_maingrouper{
+	background-position:-112px 0; /*管理员*/
+}
+.icon_groupers{
+	background-position:-128px 0; /*成员*/
+}
+.icon_TopicNumber{
+	background-position:-144px 0; /*话题数*/
+}
+.icon_down{
+	background-position:-160px 0; /*降*/
+}
+.icon_up{
+	background-position:-176px 0; /*升*/
+}
+.icon_show{
+	background-position:-192px 0; /*展示*/
+}
+.icon_hide{
+	background-position:-208px 0; /*收起*/
+}
+.icon_Enclosure{
+	background-position:-224px 0; /*附件*/
+}
+.icon_zan{
+	background-position:-240px 0; /*赞*/
+}
+.icon_Collection{
+	background-position:-256px 0; /*收藏*/
+}
+.icon_share{
+	background-position:-272px 0; /*分享*/
+}
+.icon_bubble{
+	background-position:-288px 0; /*对话*/
+}
+.icon_Reply{
+	background-position:-304px 0; /*回复*/
+}
+.icon_trash{
+	background-position:-320px 0; /*删除*/
+}
+.icon_tool{
+	background-position:-336px 0; /*设置*/
+}
+.icon_quit{
+	background-position:-352px 0; /*退出*/
+}
+
+
+.icon_RSUV{
+	background-position:-368px 0; /*热帖*/
+}
+.icon_essence{
+	background-position:-384px 0; /*加精*/
+}
+.icon_essence_cancle{
+	background-position:-400px 0; /*取消加精*/
+}
+
+.icon_top{
+	background-position:-416px 0; /*置顶*/
+}
+.icon_top_cancle{
+	background-position:-432px 0; /*取消置顶*/
+}
+.icon_shield{
+	background-position:-448px 0; /*屏蔽*/
+}
+.icon_shield_cancle{
+	background-position:-464px 0; /*取消屏蔽*/
+}
+.icon_knowledge{
+	background-position:-480px 0; /*知识标签*/
+}
+.icon_knowledge_cancle{
+	background-position:-496px 0; /*取消知识标签*/
+}
+.icon_edit{
+	background-position:-512px 0; /*编辑*/
+}
+.icon_add_people{
+	background-position:-528px 0; /*加人*/
+}
+.icon_first{
+	background-position:-544px 0; /*回到顶部*/
+}
+.icon_second{
+	background-position:-560px 0; /*回到底部*/
+}
+
+.icon_essencePost{
+	background-position:-576px 0; /*精华帖*/
+}
+.icon_zan2{
+	background-position:-592px 0; /*取消赞*/
+}
+.icon_Collection2{
+	background-position:-608px 0; /*取消收藏*/
+}
+.icon_Consultation{
+	background-position:-624px 0; /*评论*/
+}
+.icon_toKnowledge{
+	background-position:-432px -16px; /*提升知识*/
+}
+.icon_release{background-position:-640px 0;} /*发布*/
+.icon_consultation2{background-position:-656px 0;}  /*咨询*/
+.icon_helpful{background-position:-672px 0;}  /*有用*/
+.icon_helpful2{background-position:-688px 0;}  /*取消有用*/
+.icon_gold{background-position:-704px 0;}  /*金币*/
+.icon_ExpertRelease{background-position:-720px 0;}  /*专家发布*/

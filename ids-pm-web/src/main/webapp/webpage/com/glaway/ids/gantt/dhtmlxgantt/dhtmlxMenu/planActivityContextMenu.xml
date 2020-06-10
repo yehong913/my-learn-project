@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<menu>
+    <item id="editPlan" text="编辑项目" img="multi_update.gif" imgdis="multi_update.gif"/>
+    <item id="editPlanActivity" text="编辑计划" img="multi_update.gif" imgdis="multi_update.gif"/>
+    <item id="editPlanActivityStartDate" text="编辑开始时间" img="edit_properties.gif" imgdis="edit_properties.gif"/>
+    <item id="importPlanActivityFromWBSTemplate" text="从WBS或任务模板导入活动" img="import_from_wbs_template.gif" imgdis="import_from_wbs_template.gif"/>
+    <item id="importPlanActivity" text="导入MPP" img="plan_import.gif" imgdis="plan_import.gif"/>
+    <item id="transmitPlanActivity" text="下达计划" img="designation_edit.gif" imgdis="designation_edit.gif"/>
+    <item id="deletePlanActivity" text="删除" img="delete.gif" imgdis="delete.gif"/>
+    <item id="copyAndInsertPlanActivity" text="创建子计划" img="activity_new.gif" imgdis="activity_new.gif"/>
+    <item id="insertSubPlanActivity" text="在下方插入计划" img="activity_new.gif" imgdis="activity_new.gif"/>
+    <!-- <item id="copyAndInsertPlanActivity" text="复制并创建子计划" img="activity_new.gif" imgdis="activity_new.gif"/> -->
+    <item id="changePlanActivityFinishDate" text="计划变更时间编辑" img="/glawayproject/change_plan_finishdate.gif" imgdis="/glawayproject/change_plan_finishdate.gif"/>   
+    <item id="applyChangePlanActivityFinishDate" text="项目计划变更申请" img="change_action.gif" imgdis="change_action.gif"/>
+    <!-- 交付物相关操作 -->
+    <item id="relateDPBOM" text="关联DPBOM" img="addDeliverable.gif" imgdis="addDeliverable.gif"/>   
+    <item id="relateParentDeliverable" text="关联父项交付物" img="addDeliverable.gif" imgdis="addDeliverable.gif"/>
+    <item id="updateDeliverableName" text="更新交付物名称" img="multi_update.png" imgdis="multi_update.png"/>
+    <item id="deleteDeliverable" text="删除选定交付项" img="delivery_send.png" imgdis="delivery_send.png"/>
+    <item id="getUnDecomposedDeliverables" text="查找未分解交付物" img="delivery_send.png" imgdis="delivery_send.png"/>
+</menu>

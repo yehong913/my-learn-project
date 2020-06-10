@@ -1,0 +1,2 @@
+delete from FD_FUNCTION_APP_RELATE where ID='4028ef506dbda131016dc8d80dec01e2';
+delete from FD_FUNCTION_APP_RELATE where ID='4028ef506dbda131016dc8d9210e01e6';

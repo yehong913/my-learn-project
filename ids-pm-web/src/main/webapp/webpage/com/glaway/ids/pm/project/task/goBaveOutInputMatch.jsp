@@ -1,0 +1,331 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@include file="/context/mytags.jsp"%>
+<!DOCTYPE html>
+<html>
+<t:base type="jquery,easyui_iframe,tools"></t:base>
+<head>
+	<title>自动匹配</title>
+	<script >
+		$(function($) {
+			if ("1" == $("#isEnableFlag").val()) {		
+			}
+		});
+
+		function closeThisDialog() {
+			$.fn.lhgdialog("closeSelect");
+		}
+		
+		
+		// 自动匹配文档及其来源
+		function autoInputsMatch(url) {
+			top.jeasyui.util.commonMask('open','请稍候...');
+			$.ajax({
+				url : url,
+				type : 'post',
+				data : {
+					uuId : $('#uuId').val(),
+					projectId :  $('#projectId').val()
+				},
+				cache : false,
+				success : function(data) {
+					var d = $.parseJSON(data);
+					var msg = d.msg.split('<br/>')
+					top.tip(msg[0]); // John
+					if (d.success) {					
+						top.jeasyui.util.commonMask('close');
+						$("#inputMatchList").datagrid("reload");
+					}
+				}
+			});
+		}
+		
+		// 保存文档及其来源
+		function saveInputsMatch(url) {
+			$.ajax({
+				url : url,
+				type : 'post',
+				data : {
+					uuId : $('#uuId').val(),
+					parentPlanId : $('#parentPlanId').val()
+				},
+				cache : false,
+				success : function(data) {
+					var d = $.parseJSON(data);
+					var msg = d.msg.split('<br/>')
+					top.tip(msg[0]); // John
+					if (d.success) {
+						var win =$.fn.lhgdialog("getSelectParentWin");	
+						win.cleanSelectCells();
+						$.fn.lhgdialog("closeSelect");
+					}
+				}
+			});
+		}
+		
+		
+		// 清除选中行的文档及其来源
+		function deleteDocumentMatch(url) {
+			var rows = $("#inputMatchList").datagrid('getSelections');
+			var ids = [];
+			if (rows.length > 0) {
+				top.Alert.confirm('确定清除选中行的文档及其来源吗？', function(r) {
+					if (r) {
+						for (var i = 0; i < rows.length; i++) {
+							ids.push(rows[i].id);
+						}
+						$.ajax({
+							url : url,
+							type : 'post',
+							data : {
+								uuId : $('#uuId').val(),
+								ids : ids.join(',')
+							},
+							cache : false,
+							success : function(data) {
+								var d = $.parseJSON(data);
+								var msg = d.msg.split('<br/>')
+								top.tip(msg[0]); // John
+								if (d.success) {
+									$("#inputMatchList").datagrid("reload");
+								}
+							}
+						});
+					}
+				});
+			} else {
+				top.tip('<spring:message code="com.glaway.ids.common.selectDel"/>');
+			}
+		}
+		
+		//关联项目库：
+		 function goResolveProjLibMatchLink(id,index) {
+				debugger;
+				
+				var row;
+				$('#inputMatchList').datagrid('selectRow',index);
+				var all = $('#inputMatchList').datagrid('getRows');
+				for(var i=0;i<all.length;i++){
+					var inx = $("#inputMatchList").datagrid('getRowIndex', all[i]);
+					if(inx == index){
+						row = all[i];
+					}
+				}
+				
+				idRow=row.id;
+				var dialogUrl = 'projLibController.do?goProjLibLayout0&id='+$("#projectId").val()+'&rowId='+idRow;
+				$("#"+'resolveMatchLineDialog').lhgdialog("open", "url:"+dialogUrl);
+			}
+		 
+	 	//关联项目库确认：
+		function resolveMatchLineDialog(iframe) {
+			debugger;
+			if (iframe.validateSelectedNum()) {
+				var docId = iframe.getSelectionsId();
+				var folderId = iframe.$("#folderId").val();
+				var rowId = iframe.$("#rowId").val();
+				 $.ajax({
+					url : 'taskFlowResolveController.do?updateMatchProjLibAndPlanLink',
+					type : 'post',
+					data : {
+						fileId : docId,
+						folderId : folderId,
+						rowId : rowId,
+						projectId : $('#projectId').val(),
+/* 						useObjectId : $('#useObjectId').val(),
+						useObjectType : $('#useObjectType').val(), */
+						'originType' : 'PROJECTLIBDOC',
+						uuId : $('#uuId').val()
+					},
+					cache : false,
+					success : function(data) {
+						debugger;
+						var d = $.parseJSON(data);
+						$('#inputMatchList').datagrid('reload');
+					}
+				}); 
+				return true;
+			} else {
+				return false;
+			}
+		}
+	 	
+	 	//关联计划：
+		function goResolvePlanMatchLink(id,index){
+			debugger;
+			var row;
+			$('#inputMatchList').datagrid('selectRow',index);
+			var all = $('#inputMatchList').datagrid('getRows');
+			for(var i=0;i<all.length;i++){
+				var inx = $("#inputMatchList").datagrid('getRowIndex', all[i]);
+				if(inx == index){
+					row = all[i];
+				}
+			}
+			
+			$.ajax({
+				type:'POST',
+				data:{inputsName : row.name},
+				url:'planController.do?setInputsNameToSession',
+				cache:false,
+				success:function(data){
+					var d = $.parseJSON(data);
+					if(d.success){
+						var url = 'planController.do?goSelectPlanInputs&parentPlanId='+$("#parentPlanId").val()+'&projectId='+$("#projectId").val()+'&useObjectId='+row.useObjectId+'&useObjectType='+$("#useObjectType").val()+'&tempId='+row.id;
+						//url = encodeURI(encodeURI(url))
+						
+						createDialog('resolvePlanInputsMatchDialog',url);
+					}
+				}
+			});
+		}
+	 	
+		//关联计划确认：
+		function resolvePlanInputsMatchDialog(iframe){
+			if (iframe.validateSelectedBeforeSave()) {
+				debugger;
+				var row = iframe.$('#planlist').datagrid('getSelections');
+				var planId = row[0].id;
+				var tempId = iframe.$("#tempId").val();
+				var useObjectId = iframe.$("#useObjectId").val();
+				var inputsName = iframe.$("#inputsName").val();
+				
+				$.ajax({
+					type:'POST',
+					data:{
+						planId:planId,
+						tempId : tempId,
+						useObjectId : useObjectId,
+						inputsName : inputsName,
+						'originType' : 'PLAN',
+						uuId : $('#uuId').val()
+					},
+					url : 'taskFlowResolveController.do?updateMatchProjLibAndPlanLink',
+					cache:false,
+					success : function(data){
+						debugger;
+						$('#inputMatchList').datagrid('reload');
+					}
+				});
+			}else{
+				return false;
+			}
+		}
+		
+		
+	    //前置活动输出样式
+		function originStyleMatch(val, row, index) {
+	    	debugger;
+			if (val != undefined && val != null && val != '') {
+				var matchFlag = row.matchFlag;
+				if ( matchFlag == 'true') {
+					return "<div style=\"color:red;\">" + val + "</div>";
+				}
+				else {
+					return val;
+				}
+			}else{
+				return '';
+			}
+		}
+		
+		function addLinkMatch(val, row, value) {	
+			debugger;
+			if (row.docName != undefined && row.docName != null && row.docName != '') {				
+			}else{
+				return '';
+			}
+			if(row.originType == 'PROJECTLIBDOC'){
+			debugger;
+			var path = "<a  href='#' title='查看' style='color:blue' onclick='openProjectDocMatch(\""+ row.docIdShow+ "\",\""+ row.docName+ "\",\""+ row.ext1+"\",\""+ row.ext2+"\")'>"
+			+ row.docName
+			+ "</a>"
+			if (row.ext3 == 'false') {				
+				path = row.docName;
+				
+			}
+			return path; 
+			}
+			else if(row.originType == 'PLAN'){
+				debugger;
+				var path = "<a  href='#' title='查看' style='color:blue' onclick='openProjectDocMatch(\""+ row.docId+ "\",\""+ row.docName+ "\",\""+ row.ext1+"\",\""+ row.ext2+"\")'>"
+				+ row.docName
+				+ "</a>"
+ 			if (row.ext3 == 'false') { 			
+					path = row.docName;				
+			} 
+			return path;
+			
+			}
+			else{
+				return '';
+			}
+			
+		}
+				
+		function openProjectDocMatch(id, name,download,history) {
+			if (download == false || download == 'false') {
+				download = "false";
+			}
+			if (history == false || history == 'false') {
+				history = "false";
+			}
+			var url = "projLibController.do?viewProjectDocDetail&id=" + id
+					+ "&download=" + download + "&history=" + history;
+			createdetailwindowMatch("文档详情", url, "870", "580")
+		}
+
+			function createdetailwindowMatch(title, url, width, height) {
+				width = width ? width : 700;
+				height = height ? height : 400;
+				if (width == "100%" || height == "100%") {
+					width = document.body.offsetWidth;
+					height = document.body.offsetHeight - 100;
+				}
+				if (typeof (windowapi) == 'undefined') {
+					createDialog('showDocDetailMatchDialog',url)
+				} else {
+					createDialog('showDocDetailMatchDialog',url)
+				} 
+			}
+	</script>
+</head>
+<body>	
+	<input type="hidden" id ='parentPlanId' name='parentPlanId' value="${parentPlanId}"/>
+	<input type="hidden" id ='uuId' name='uuId' value="${uuId}"/>
+	<input id="projectId" name="projectId" type="hidden" value="${projectId}" />		
+	<fd:toolbar id="inTB">
+		<fd:toolbarGroup>
+		<fd:linkbutton onclick="saveInputsMatch('taskFlowResolveController.do?doBatchMatchSave')" 
+				iconCls="basis ui-icon-save" value="保存" id="saveInputsMatchButton" />
+		<fd:linkbutton onclick="autoInputsMatch('taskFlowResolveController.do?autoInfoMatch')" 
+				iconCls="basis ui-icon-matching" value="自动匹配" id="autoInputsMatchButton" />
+			<fd:linkbutton onclick="deleteDocumentMatch('taskFlowResolveController.do?deleteDocumentMatch')" 
+				iconCls="basis ui-icon-cancel" value="清除来源" id="deleteInputsMatchButton" />
+		</fd:toolbarGroup>
+	</fd:toolbar>	
+	<fd:datagrid toolbar="#inTB" idField="id" id="inputMatchList" pagination="false" fit="true" fitColumns="true"  checkbox="true" url="taskFlowResolveController.do?outInputMatchList&uuId=${uuId}&parentPlanId=${parentPlanId}">		
+			<fd:colOpt title="操作" width = "80">
+				<fd:colOptBtn iconCls="basis ui-icon-pddata" tipTitle="项目库关联" onClick="goResolveProjLibMatchLink" hideOption="resolveProjLibLinkOpt"/>
+				<fd:colOptBtn iconCls="basis ui-icon-search" tipTitle="计划关联" onClick = "goResolvePlanMatchLink" hideOption = "resolvePlanLinkOpt"/>
+			</fd:colOpt>
+		<fd:dgCol title="活动名称" tipField="活动名称" field="originObjectName" width="200"/>
+		<fd:dgCol title="输入" tipField="输入" field="name" width="100"/>		
+		<fd:dgCol title="文档" tipField="文档" field="docName"  width="100" formatterFunName="addLinkMatch" />
+		<fd:dgCol title="来源" tipField="来源" field="originObjectNameShow" width="100" formatterFunName="originStyleMatch"/>
+	</fd:datagrid>	
+	<fd:dialog id="resolveMatchLineDialog" width="1000px" height="500px" modal="true" title="项目库关联" >
+		<fd:dialogbutton name="{com.glaway.ids.common.btn.confirm}" callback="resolveMatchLineDialog"></fd:dialogbutton>
+		<fd:dialogbutton name="{com.glaway.ids.common.btn.cancel}" callback="hideDiaLog"></fd:dialogbutton>
+	</fd:dialog>
+
+	<fd:dialog id="resolvePlanInputsMatchDialog" width="800px" height="580px" modal="true" title="选择来源计划" >
+		<fd:dialogbutton name="{com.glaway.ids.common.btn.confirm}" callback="resolvePlanInputsMatchDialog"></fd:dialogbutton>
+		<fd:dialogbutton name="{com.glaway.ids.common.btn.cancel}" callback="hideDiaLog"></fd:dialogbutton>
+	</fd:dialog>
+	
+	<fd:dialog id="showDocDetailMatchDialog" modal="true" width="1000" height="550" title="文档详情" >
+		<fd:dialogbutton name="{com.glaway.ids.common.btn.close}" callback="hideDiaLog"></fd:dialogbutton>
+	</fd:dialog>
+	</body>
+	</html>

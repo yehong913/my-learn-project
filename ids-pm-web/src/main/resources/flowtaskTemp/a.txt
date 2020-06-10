@@ -1,0 +1,24 @@
+<mxGraphModel>
+  <root>
+    <Workflow label="MyWorkflow" description="" id="0">
+      <mxCell/>
+    </Workflow>
+    <Layer label="Default Layer" description="" id="1">
+      <mxCell parent="0"/>
+    </Layer>
+    <Symbol label="½áÊø" description="" href="" id="end">
+      <mxCell style="symbol;image=images/idsImg/end.png" parent="1" vertex="1">
+        <mxGeometry x="600" y="180" width="32" height="32" as="geometry"/>
+      </mxCell>
+    </Symbol>
+    <Symbol label="¿ªÊ¼" description="" href="" id="start">
+      <mxCell style="symbol;image=images/idsImg/start.png" parent="1" vertex="1">
+        <mxGeometry x="169" y="180" width="32" height="32" as="geometry"/>
+      </mxCell>
+    </Symbol>
+    <mxCell id="cutline" value="Í¼Àý" style="wftask;image=images/editorImg/cutline.png" vertex="1" parent="1">
+      <mxGeometry x="20" y="20" width="572" height="24" as="geometry"/>
+    </mxCell>
+    
+  </root>
+</mxGraphModel>

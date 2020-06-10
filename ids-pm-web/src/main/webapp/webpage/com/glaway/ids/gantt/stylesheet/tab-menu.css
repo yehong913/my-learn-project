@@ -1,0 +1,92 @@
+/* {
+    margin: 0;
+    padding: 0;
+}*/
+
+.tab-menu-box {
+    position: relative;
+    width: 1000px;
+    height: 100%;
+    border-bottom: 1px solid #e2f3ff;
+    font: 13px/20px "宋体";
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.tab-menu-box a {
+    text-decoration: none;
+    color: #4f4f4f;
+}
+
+.tab-menu-box .tab-menu-list {
+    position: absolute;
+    z-index: 1;
+    width: 750px; /*最小宽度，初始值，其宽度不定，由js控制*/
+    height: 100%;
+    list-style: none;
+}
+
+.tab-menu-box .tab-menu-list li {
+    float: left;
+    margin-right: 10px;
+    height: 100%;
+}
+
+.tab-menu-box .tab-menu-list li a {
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 4px 0;
+    background-color: #f0f8fe;
+    border: 1px solid #d9efff;
+    border-bottom: none;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.tab-menu-box .tab-menu-list a.active,
+.tab-menu-box .tab-menu-list a.active:hover {
+    background-color: #fff;
+    color: #007abf;
+}
+
+.tab-menu-box .tab-menu-list li a:hover {
+    background-color: #e6f3fe;
+    color: #666;
+}
+
+.tab-menu-box .btn-toLeft,
+.tab-menu-box .btn-toRight {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    width: 38px;
+    height: 30px;
+    line-height: 30px;
+    background-color: #f0f8fe;
+    border: 1px solid #d9efff;
+    border-bottom: none;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    text-align: center;
+}
+
+.tab-menu-box .btn-toLeft:hover,
+.tab-menu-box .btn-toRight:hover {
+    background-color: #e6f3fe;
+}
+
+.tab-menu-box .btn-toLeft {
+    left: 0;
+    background-image: url('../images/triangle-left.png');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+.tab-menu-box .btn-toRight {
+    right: 0;
+    background-image: url('../images/triangle-right.png');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<menu>
+    <item id="modifyPlanActivityFinishDate" text="调整计划完成时间" img="standard_picker.gif" imgdis="standard_picker.gif"/>
+</menu>

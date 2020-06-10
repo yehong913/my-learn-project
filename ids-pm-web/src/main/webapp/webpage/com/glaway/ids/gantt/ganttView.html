@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<title>甘特视图</title>
+</head>
+<link rel="stylesheet" href="stylesheet/jquery-ui.css" type="text/css" />
+<link rel="stylesheet" href="dhtmlx/skins/skyblue/dhtmlx.css" type="text/css" />
+<link rel="stylesheet" href="dhtmlxgantt/sources/skins/dhtmlxgantt_skyblue.css" type="text/css" />
+<link rel="stylesheet" href="dhtmlxgantt/sources/skins/dhtmlxgantt_skyblue_debug.css" type="text/css" />
+<link rel="stylesheet" href="dhtmlxgantt/dhtmlxMenu/skins/dhtmlxmenu_dhx_terrace.css" type="text/css" />
+	
+<script src="dhtmlx/dhtmlx.js" type="text/javascript" charset="utf-8"></script>
+<script src="dhtmlxgantt/dhtmlxgantt-debug.js" type="text/javascript" charset="utf-8"></script>
+<script src="dhtmlxgantt/locale/locale_cn.js" type="text/javascript" charset="utf-8"></script>
+<script src="dhtmlxgantt/ext/dhtmlxgantt_marker.js"type="text/javascript" charset="utf-8"> </script>
+<script src="dhtmlxgantt/ext/dhtmlxgantt_tooltip.js" type="text/javascript" charset="utf-8"> </script>
+<script src="dhtmlxgantt/ext/dhtmlxgantt_critical_path.js" type="text/javascript" charset="utf-8"> </script>
+<script src="dhtmlxgantt/dhtmlxMenu/dhtmlxmenu.js" type="text/javascript" charset="utf-8"></script>
+<script src="dhtmlxgantt/dhtmlxMenu/ext/dhtmlxmenu_ext.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="javascript/jquery-1.8.2.js" type="text/javascript" charset="utf-8"></script>
+<script src="javascript/jquery-ui.js" type="text/javascript" charset="utf-8"></script>
+<script src="javascript/jquery.json-2.2.js" type="text/javascript" charset="utf-8"></script>
+<script src="../javascript/global.js" type="text/javascript" charset="utf-8"></script>
+
+<style>
+html,body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+}
+
+.weekend {
+	background: #f4f7f4;
+}
+
+.gantt_selected .weekend {
+	background: #f7eb91;
+}
+
+.gantt_task_link.start_to_start .gantt_line_wrapper div {
+	background-color: #dd5640;
+}
+
+.gantt_task_link.start_to_start:hover .gantt_line_wrapper div {
+	box-shadow: 0 0 5px 0px #dd5640;
+}
+
+.gantt_task_link.start_to_start .gantt_link_arrow_right {
+	border-left-color: #dd5640;
+}
+
+.gantt_task_link.finish_to_start .gantt_line_wrapper div {
+	background-color: #7576ba;
+}
+
+.gantt_task_link.finish_to_start:hover .gantt_line_wrapper div {
+	box-shadow: 0 0 5px 0px #7576ba;
+}
+
+.gantt_task_link.finish_to_start .gantt_link_arrow_right {
+	border-left-color: #7576ba;
+}
+
+.gantt_task_link.finish_to_finish .gantt_line_wrapper div {
+	background-color: #55d822;
+}
+
+.gantt_task_link.finish_to_finish:hover .gantt_line_wrapper div {
+	box-shadow: 0 0 5px 0px #55d822;
+}
+
+.gantt_task_link.finish_to_finish .gantt_link_arrow_left {
+	border-right-color: #55d822;
+}
+
+.red .gantt_cell,.odd.red .gantt_cell,.red .gantt_task_cell,.odd.red .gantt_task_cell
+	{
+	background-color: #FDE0E0;
+}
+
+.green .gantt_cell,.odd.green .gantt_cell,.green .gantt_task_cell,.odd.green .gantt_task_cell
+	{
+	background-color: #BEE4BE;
+}
+
+.gantt_grid {
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+
+.gantt_task {
+	overflow-x: scroll;
+	overflow-y: hidden;
+}
+
+.gantt_cell {
+	cursor: default;
+}
+
+.gantt_link_line_right {
+    height:2px!important;
+}
+		
+.gantt_link_line_left {
+    height:2px!important;
+}
+		
+.gantt_link_line_down {
+    width:2px!important;
+}
+		
+.gantt_link_line_up{
+    width:2px!important;
+}
+		
+.gantt_link_arrow_right{
+    margin-top:1px!important;
+}
+		
+.gantt_link_arrow_left{
+    margin-top:1px!important;
+}
+
+.gantt_tree_icon.gantt_folder_open {
+	background-image: url(./images/activity_summary.gif);
+}
+
+.gantt_tree_icon.gantt_folder_closed {
+	background-image: url(./images/activity_summary.gif);
+}
+
+.gantt_tree_icon.gantt_file {
+	background-image: url(./images/activity.gif);
+}
+
+.gantt_tree_icon.tree_root {
+	background-image: url(./images/plan.gif);
+}
+
+.gantt_hor_scroll{
+    overflow-x:hidden;
+    overflow-y:hidden;
+}
+ .status_line_marker{
+   border-left:1px dotted #3366cc;
+}
+.gantt_critical_task {
+	border-color: #9d3a3a;
+	background-color: #e63030;
+}
+</style>
+<body oncontextmenu="return false" ondragstart="return false"
+	onselectstart="return false">
+	<div id="loadingDiv"
+		style='width: 100%; height: 100%; display: none; background-color: #FFFFF; z-index: 1000; position: absolute; text-align: center;'>
+		<img id="loadingImg"
+			style="margin: 0px auto; position: absolute; left: 50%; top: 50%;"
+			src="webpage/com/glaway/ids/gantt/images/ajaxstatus/01.png">
+	</div>
+	<div style="height: 32px; width: 100%;">
+		<div id="toolbarObj"></div>
+	</div>
+	<div id="gantt_here" style='width: 100%; height: 90%'></div>
+	<script type="text/javascript" src="javascript/ganttView.js"></script>
+</body>

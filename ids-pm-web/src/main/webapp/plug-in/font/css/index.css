@@ -1,0 +1,284 @@
+body{
+	
+
+	/*overflow: hidden;*/
+}
+*{
+	margin: 0;
+	padding: 0;
+}
+
+html, body {
+	/* Default Font */
+	font-family:"微软雅黑";
+	font-size: 12px;
+	
+	padding:0;
+	margin:0
+}
+ul,li{ padding:0; margin:0; list-style:none}
+a {
+	color: #0066ff;
+	cursor: pointer;
+	outline: none;
+	outline: none;
+	text-decoration: none;
+	blr:expression(this.onFocus=this.blur());
+}
+a:hover {
+	text-decoration: none;
+	color: #0066ff;
+}
+.sol{ background:url(../img/solid.png) bottom no-repeat; height:14px; width:14px; display:inline-block; }
+.ico{ display:inline-block; width:14px; height:14px;}
+.red{ color:#F00}
+.gray{color:#ccc;}
+.k_search{padding:10px; border-bottom:0px solid #ccc; background:#f9fafb}
+.k_search .input_wrap{float:left}
+.k_search .input_wrap input{height:36px; border:1px solid #6cf; line-height:36px; vertical-align:middle; width:400px; font-size:14px;}
+.k_search .btn_search{ background-color:#6cf; height:36px;display:inline-block; width:100px;border:1px solid #6cf;}
+.k_search .btn_search a{ font-size:14px; display:block; text-align:center;_height:34px;*height:34px!important; line-height:36px; height:36px; color:#fff; vertical-align:middle; font-weight:bold}
+.k_search .hot{margin-left:20px; font-weight:bold; width:500px; overflow:hidden}
+.k_search .hot a{ font-weight:normal;margin-left:10px;}
+
+.k_forum{ padding:10px; height:24px; line-height:24px; vertical-align:middle; clear:both; background:#f9fbfc;border:1px solid #ccc; border-top:1px solid #ccc}
+.k_forum i{ display:inline-block; height:14px; width:14px; border:0px solid #ccc; margin-left:15px}
+.k_forum .title{display:inline-block; font-size:12px;position:relative;height:34px; border:0px solid #f00}
+.k_forum .title .bk{ }
+.k_forum .title .bk:hover{ color:#f00; cursor:pointer}
+.k_forum .title .tool{ display:none;position:absolute;background:#fff; border:1px solid #ccc; width:500px; padding:20px; margin-top:10px}
+.k_forum .title .tool i{ background:url(../img/Arrow.png) no-repeat; height:7px; width:13px; display:block; position:relative; top:-27px;}
+.k_forum .title .tool ul li{ padding:5px 10px; text-align:center; border:1px dashed #ccc; float:left; margin:5px 10px; cursor:pointer }
+.k_forum .title .tool ul li:hover{background:#f9fafb; cursor:pointer}
+
+.k_forum .data{ display:inline-block; margin-left:50px;}
+.k_forum .data span{ color:#ccc; display:inline-block; margin:0 5px;}
+.k_forum .data .plate_often{
+    margin-left: 40px;
+    color: #000;
+    width: 620px;
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+    vertical-align: middle;
+    overflow: hidden;
+}
+.k_forum .follow{ float:right; margin-right:30px;}
+.k_forum .follow a{ display:inline-block; margin:0 5px; color:#F00; font-weight:bold; font-size:14px}
+.k_forum .new{ float:right; margin-right:30px; margin-top:-4px;}
+.k_forum .new a{ display:inline-block; margin:0 5px;padding:4px 10px; background:#6cf; color:#Fff;  font-size:14px}
+.k_forum .new .edit{ float:right; position:relative}
+.k_forum .new .edit div{ display:none; position:absolute; width:150px;background:#f9fafb; border:1px solid #ccc}
+.k_forum .new .edit div ul li{ padding:5px 10px; text-align:center; border-bottom:1px dashed #ccc; }
+.k_forum .new .edit div ul li:hover{background:#D2D2D2; color:#fff; cursor:pointer}
+
+.k_forum .title .search{ display:inline-block; margin-left:100px}
+.k_forum .title .search input[type='text']{ border:1px solid #6cf; height:24px; width:150px;}
+.k_forum .title .search input[type='button']{background-color:#6cf; border:none; padding:4px 10px; margin-right:30px; color:#fff;}
+
+.k_title{
+  background-color: #E0ECFF;
+  background: -webkit-linear-gradient(top,#f6fbfe 0,#e0f3fd 100%);
+  background: -moz-linear-gradient(top,#f6fbfe 0,#e0f3fd 100%);
+  background: -o-linear-gradient(top,#f6fbfe 0,#e0f3fd 100%);
+  background: linear-gradient(to bottom,#f6fbfe 0,#e0f3fd 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#f6fbfe,endColorstr=#e0f3fd,GradientType=0);
+  font-weight:bold;
+height:36px;
+line-height:36px;
+vertical-align:middle;
+padding:0 10px
+}
+.k_title span{ float:right; margin-right:30px;height:48px; display:inline-block;font-weight:normal}
+.k_content{ padding:10px;}
+
+.k_content ul{ margin:0 auto; display:inline-block}
+.k_content ul li{ float:left;  border-bottom:1px dashed #ccc; margin:5px 0;}
+.k_content ul li .plate{ width:440px; border: 0px solid #ccc;}
+.k_content ul li .plate .plate_img{ display:inline-block; height:70px; width:70px; overflow:hidden; border:0px solid #ccc; vertical-align:top}
+.k_content ul li .plate .plate_img span{ position:relative;top:-16px; width:70px; display:inline-block; color:#fff; text-align:center; z-index:2}
+.k_content ul li .plate .plate_img span i{ position:absolute; left:0; height:30px; width:70px; background:#f00;  -webkit-opacity: 0.6;  
+    /* Netscape and Older than Firefox 0.9 */  
+    -moz-opacity: 0.6;  
+    /* Safari 1.x (pre WebKit!) 老式khtml内核的Safari浏览器*/  
+    -khtml-opacity: 0.6;  
+    /* IE9 + etc...modern browsers */  
+    opacity: .6;  
+    /* IE 4-9 */  
+    filter:alpha(opacity=60);  
+    /*This works in IE 8 & 9 too*/  
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";  
+    /*IE4-IE9*/  
+    filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=60);   z-index:-1}
+.k_content ul li .plate .plate_img img{width:70px}
+.k_content ul li .plate .plate_info{height:80px; width:340px; display:inline-block; margin-left:4px; overflow:hidden}
+.k_content ul li .plate .plate_info ul{ list-style:none; width:100%}
+.k_content ul li .plate .plate_info ul li{ float:none; text-align:left; width:100%; border:0; margin:auto}
+.k_content ul li .plate .plate_info ul li a{ color:#0066ff}
+.k_content ul li .plate .plate_info .title{ font-weight:bold;}
+.k_content ul li .plate .plate_info .title .title01{color:#0066ff}
+.k_content ul li .plate .plate_info .title a{ color:#000;}
+.k_content ul li .plate .plate_info .title span{ float:right; margin-left:10px}
+.k_content ul li .plate .plate_info  i{ margin-right:3px;}
+.k_content ul li .plate .plate_info .content{ height:36px; overflow:hidden; line-height:18px; margin:0 0 4px;}
+.k_content ul li .plate .plate_info .content01 a{ height:18px; width:180px; overflow:hidden; display:inline-block}
+.k_content ul li .plate .plate_info .person{ height:36px; line-height:36px; vertical-align:middle; overflow:hidden}
+.k_content ul li .plate .plate_info .auth{ float:right; margin-left:10px; width:70px; overflow:hidden; text-align:right; height:20px}
+.k_content ul li .plate .plate_info .time{ float:right; margin-left:10px; width:70px; overflow:hidden; text-align:right; height:20px}
+.k_content ul li .plate .plate_info .TopicNumber{ float:right; margin-left:10px; width:110px; overflow:hidden; text-align:right}
+.k_content ul li .plate .plate_info .groupers{ float:right; margin-left:10px; width:110px; overflow:hidden; text-align:right}
+
+.k_content .notice{}
+.k_content .notice li{ float:none; border:0; margin:3px 0}
+
+.k_dtl{  margin:0 auto}
+.k_dtl .title{ font-size:18px; font-weight:bold; text-align:center; margin:30px 0 10px}
+.k_dtl .title .tool{ float:right; }
+.k_dtl .tip{ text-align:center; color:#999; margin:10px 0}
+.k_dtl .tip span{margin:0 10px}
+.k_dtl .content p{ font-size:12px}
+.k_dtl .op{ margin:5px 0}
+.k_dtl .op .collection{ float:right; margin-right:30px}
+.k_dtl .op .share{ float:right;}
+.k_dtl .per , .member .per{ border-bottom:1px dashed #ccc; padding-bottom:5px; display:inline-block; width:100%}
+.k_dtl .per ul , .member .per ul{  margin-right:10px; float:left;  width:40px; height:60px; overflow:hidden}
+.k_dtl .per ul li{ text-align:center}
+.k_dtl .per .img1 img{ width:36px; height:36px;}
+.k_dtl .title .edit{ float:right; position:relative}
+.k_dtl .title .edit div{ display:none; position:absolute; width:150px;background:#f9fafb; margin-top:14px; border:1px solid #ccc}
+.k_dtl .title .edit div ul li{ padding:8px 10px; text-align:center; border-bottom:1px dashed #ccc; font-size:12px; font-weight:normal; font-style:normal }
+.k_dtl .title .edit div ul li:hover{background:#D2D2D2; color:#fff; cursor:pointer}
+
+.k_dtl .content .dtl_reply{margin-left:60px}
+.k_dtl .comment{ margin:20px 0 0 0}
+
+.k_dtl .comment .img{ display:inline-block; float:left}
+.k_dtl .comment .zan{float:right}
+.k_dtl .comment .reply{ margin:0px 0 0 60px; position:relative; top:-6px}
+.k_dtl .comment .reply textarea{ width:100%; height:60px}
+.k_dtl .comment .reply .auth{ }
+.k_dtl .comment .reply .reply_dtl{ margin:5px 0}
+.k_dtl .comment .reply .reply_dtl .tle{ margin-right:40px;}
+.k_dtl .comment .reply .reply_dtl .zan{ float:right;}
+.k_dtl .comment .reply .reply_tool123{-webkit-opacity: 0.3;  
+    /* Netscape and Older than Firefox 0.9 */  
+    -moz-opacity: 0.3;  
+    /* Safari 1.x (pre WebKit!) 老式khtml内核的Safari浏览器*/  
+    -khtml-opacity: 0.3;  
+    /* IE9 + etc...modern browsers */  
+    opacity: .3;  
+    /* IE 4-9 */  
+    filter:alpha(opacity=30);  
+    /*This works in IE 8 & 9 too*/  
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";  
+    /*IE4-IE9*/  
+    filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=30);}
+.k_dtl .comment .reply .reply_tool123:hover{-webkit-opacity: 1;  
+    /* Netscape and Older than Firefox 0.9 */  
+    -moz-opacity: 1;  
+    /* Safari 1.x (pre WebKit!) 老式khtml内核的Safari浏览器*/  
+    -khtml-opacity: 1;  
+    /* IE9 + etc...modern browsers */  
+    opacity: 1;  
+    /* IE 4-9 */  
+    filter:alpha(opacity=100);  
+    /*This works in IE 8 & 9 too*/  
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";  
+    /*IE4-IE9*/  
+    filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=100);}
+.k_dtl .comment .fra{ border:1px solid #ccc; background:#F2F2F2}
+.k_dtl .comment .mar0{ margin:8px 0}
+.k_dtl i{ margin-right:3px}
+.btn_reply{ margin:5px 0 0 0; height:20px;}
+.btn_reply a{ float:right; display:inline-block; padding:4px 20px;background-color:#6cf; color:#fff; margin-left:10px}
+.Enclosure{ margin:10px 0}
+.Enclosure i{ margin-right:3px}
+
+.group{ margin:10px 0}
+.con_right{ float:right; width:300px; border:1px solid #ccc; margin-right:10px;}
+.con_left{ margin-right:320px; margin-left:10px}
+.con_left .k_forum{ clear:none}
+
+.member{ border-bottom:1px solid #ccc; border-top:1px solid #ccc;}
+.member .per{ border:none; padding:10px 5px; text-align:center}
+.member .per ul{ margin:10px 25px; height:80px}
+.member .per .img span{ display:none; position:absolute; margin-top:10px; margin-left:-30px; cursor:pointer; padding:2px 4px ; border:1px solid #ccc; background:#fff;}
+.member .member_dtl{ font-weight:bold; padding:10px}
+.member .member_dtl span{ float:right; color:#999; font-weight:normal}
+
+.notice{ padding:10px;}
+.notice div{ font-weight:normal}
+
+.dynamic{ clear:both}
+.dynamic .dynamic_title{font-weight:bold; padding:10px}
+.dynamic .dynamic_title span{ float:right; color:#999; font-weight:normal}
+.dynamic .dynamic_dtl{ padding:0 10px}
+.dynamic .dynamic_dtl .img{ display:inline-block; float:left}
+.dynamic .dynamic_dtl .zan{float:right}
+.dynamic .dynamic_dtl .reply{ margin:0px 0 0 60px; position:relative; top:-6px}
+.dynamic .dynamic_dtl .reply textarea{ width:100%; height:60px}
+.dynamic .dynamic_dtl .reply .auth{}
+.dynamic .dynamic_dtl .reply .auth span{ float:right}
+.dynamic .dynamic_dtl .reply .reply_dtl{ }
+.dynamic .dynamic_dtl .reply .reply_dtl .tle{ margin-right:40px;}
+.dynamic .dynamic_dtl .reply .reply_dtl .zan{ float:right;}
+
+.list{ margin:10px 0}
+.list table{ border-top:1px solid #ccc; border-left:1px solid #ccc;}
+.list table th{ border-right:1px dotted #ccc; border-bottom:1px dotted #ccc; font-size:12px; font-weight:bold; padding:6px 8px; background:#F3F3F3}
+.list table td{ border-right:1px dotted #ccc; border-bottom:1px dotted #ccc; font-size:12px; font-weight:normal; padding:4px 8px; position:relative}
+.list table td span{ position:absolute; right:10px}
+.list table td .list_tool{ display:none}
+.list table td i{ margin:0 3px 0 0 }
+
+.border0{ border:none}
+
+.foc{ display:none; position:absolute; border:1px solid #ccc; background:#fff; height:136px; width:200px; margin-left:-100px; z-index:2; padding:5px;}
+.foc .foc_title div{ display:inline-block; margin:0px 2px; text-align:left;  vertical-align:top;}
+.foc .foc_title div p{ width:130px; overflow:hidden; text-align:left; margin-bottom:5px}
+.foc .foc_content{ border:0px solid #ccc; margin-top:5px; }
+.foc .foc_content ul{ margin:0;width:100%; height:50px }
+.foc .foc_content ul li{ float:left; width:60px; text-align:center }
+.foc .foc_content ul li p{ margin:3px 0}
+.foc .foc_content a{ display:block; height:30px; width:100%; line-height:30px; text-align:center; vertical-align:middle; background:#6cf; color:#fff; clear:both; text-align:center}
+
+.floatTool{ position:fixed; top:50px; right:100px;}
+
+.per .score{clear:both; display:block; height:36px; overflow:hidden; margin:20px 0}
+
+.dtl{overflow:hidden}
+.dtl .k_dtl{margin-right:340px; margin-left:20px;}
+.dtl .dtl_right{ width:300px; float:right; margin:20px; position:absolute; right:10px;}
+.dtl .dtl_right .information,.dtl .dtl_right .classification{ border:1px solid #ccc; margin-bottom:10px}
+.dtl .dtl_right .information .title ,.dtl .dtl_right .classification .title{ border-bottom:1px solid #ccc; padding:4px 8px; background:#EBEBEB}
+.dtl .dtl_right .information .content ,.dtl .dtl_right .classification .content{ padding:10px 5px;}
+.dtl .dtl_right .information .title01{ border-top:1px dashed #ccc; padding:12px 8px;}
+.dtl .dtl_right .information .tag{ padding:8px}
+.dtl .dtl_right .information .tag a{ display:inline-block; border:1px dashed #ccc; padding:4px 8px ; margin:2px 4px}
+.dtl .dtl_right .information .content ul li{ list-style:none; margin:5px 0}
+
+
+.clearfix::after{ display:block; content:''; height:0; overflow:hidden; clear:both;} 
+/*星星样式*/
+.dtl .dtl_right .information .content{ margin:0 auto;}
+.dtl .dtl_right .information .title{ font-size:14px; background:#dfdfdf; padding:10px; margin-bottom:10px;}
+.dtl .dtl_right .information .block{ width:100%; margin:0;line-height:21px; height:30px; overflow:hidden}
+.dtl .dtl_right .information .block .star_score{ float:left;}
+.star_list{height:21px;margin:50px; line-height:21px;}
+.block p,.block .attitude{ padding-left:20px; line-height:21px; display:inline-block;}
+.block p span{ color:#C00; font-size:16px; }
+.star_score { background:url(../img/stark2.png); width:160px; height:21px;  position:relative; display:inline-block }
+.star_score a{ height:21px; display:block; text-indent:-999em; position:absolute;left:0;}
+
+.star_score a.clibg{ background:url(../img/stars2.png);left:0;}
+#starttwo{ margin:10px 0}
+#starttwo .star_score { background:url(../img/starky.png);}
+
+#starttwo .star_score a.clibg{ background:url(../img/starsy.png);left:0;}
+/*星星样式*/
+.show_number{ padding-top:20px;}
+.show_number li{ width:240px; padding:10px; margin-right:5px; margin-bottom:20px;}
+.atar_Show{background:url(../img/stark2.png); width:160px; height:21px;  position:relative; float:left; }
+.atar_Show p{ background:url(../img/stars2.png);left:0; height:21px; width:134px;}
+.show_number li span{ display:inline-block; line-height:21px;}
