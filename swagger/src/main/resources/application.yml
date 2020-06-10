@@ -1,31 +1,17 @@
 server:
   port: 8080
+  tomcat:
+    max-connections: 20000
 spring:
   datasource:
 #    url:  jdbc:mysql://localhost:6666/mall?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     url:  jdbc:mysql://localhost:5555/mall?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     #使用容器，请更改  jdbc:mysql://mysql:5555   需要容器在同一个network下或link mysql
-    username: root
-    password: soiree
+
     druid:
-    initial-size: 5 #连接池初始化大小
-    min-idle: 10 #最小空闲连接数
-    max-active: 20 #最大连接数
-    web-stat-filter:
-    exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*" #不统计这些请求数据
-    stat-view-servlet: #访问监控网页的登录用户名和密码
-    login-username: druid
-    login-password: druid
-    credit:
-      min-evictable-idle-time-millis: 1800000
-      test-while-idle: true
-      time-between-eviction-runs-millis: 300000
-      validation-query: SELECT 1 FROM DUAL
-      prod:
-        min-evictable-idle-time-millis: 1800000
-        test-while-idle: true
-        time-between-eviction-runs-millis: 300000
-        validation-query: SELECT 1 FROM DUAL
+      username: root
+      password: soiree
+      
   mvc:
     async:
       request-timeout: 20000
@@ -49,6 +35,26 @@ mybatis:
     ##    root: DEBUG #指定包，指定类，或者直接root  #root: debug
 
 
+
+
+
+
+
+#
+#  datasource:
+#    b
+#    break-after-acquire-failure: false
+#    #设置获取连接出错时的自动重连次数
+#    connection-error-retry-attempts: 1
+##设置获取连接时的重试次数，-1为不重试
+#    not-full-fimeout-retry-count: 2
+#    #重连间隔时间 单位毫秒
+#    acquire-retry-delay: 10000
+#    # 设置获取连接出错时是否马上返回错误，true为马上返回
+#    fail-fast: true
+#      #属性类型是字符串，通过别名的方式配置扩展插件，常用的插件有：
+#    #监控统计用的filter:stat日志用的filter:log4j防御sql注入的filter:wall
+#    filters: stat,wall
 
 
 
